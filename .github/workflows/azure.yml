@@ -24,6 +24,25 @@ jobs:
         with:
           node-version: '24'
           cache: npm
+      - name: Verify protected package sources
+        run: |
+          test "$(npm config get registry)" = 'https://packagefeedproxy.microsoft.io/npm/'
+          node --input-type=module <<'NODE'
+          import assert from 'node:assert/strict';
+          import { readFileSync } from 'node:fs';
+          const { packages } = JSON.parse(readFileSync('package-lock.json', 'utf8'));
+          for (const [name, { resolved }] of Object.entries(packages)) {
+            if (!resolved) continue;
+            const url = new URL(resolved);
+            assert(
+              url.protocol === 'https:' &&
+              ((url.hostname === 'packagefeedproxy.microsoft.io' && url.pathname.startsWith('/npm/')) ||
+               (url.hostname === 'ms-feed-25.pkgs.visualstudio.com' &&
+                url.pathname.startsWith('/1es-public/_packaging/npm-public/npm/registry/'))),
+              `Unapproved package source: ${name}`
+            );
+          }
+          NODE
       - run: npm ci
       - run: node --check src/main.js && node --check src/data.js
       - run: npm run build
@@ -74,14 +93,22 @@ jobs:
               --location "$AZURE_LOCATION" \
               --kind StorageV2 --sku Standard_LRS \
               --https-only true --min-tls-version TLS1_2 \
+              --public-network-access Enabled \
+              --allow-shared-key-access false \
               --allow-blob-public-access false --output none
           fi
+          az storage account update \
+            --name "$AZURE_STORAGE_ACCOUNT" \
+            --resource-group "$AZURE_RESOURCE_GROUP" \
+            --public-network-access Enabled \
+            --allow-shared-key-access false \
+            --allow-blob-public-access false --output none
           az storage blob service-properties update \
-            --account-name "$AZURE_STORAGE_ACCOUNT" --auth-mode key \
+            --account-name "$AZURE_STORAGE_ACCOUNT" --auth-mode login \
             --static-website true --index-document index.html \
             --404-document index.html --output none
           az storage blob upload-batch \
-            --account-name "$AZURE_STORAGE_ACCOUNT" --auth-mode key \
+            --account-name "$AZURE_STORAGE_ACCOUNT" --auth-mode login \
             --destination '$web' --source dist --overwrite true \
             --content-cache-control 'no-cache' --output none
           url=$(az storage account show \

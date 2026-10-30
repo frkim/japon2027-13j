@@ -9,6 +9,8 @@ euros/yens et impression de l’intégralité du carnet, même après filtrage.
 ## Développement
 
 Node.js 22.12+ et npm sont nécessaires.
+Le fichier `.npmrc` utilise le flux npm protégé Microsoft. Le workflow refuse les
+sources de paquets qui ne passent pas par ce flux ou son miroir Azure Artifacts.
 
 ```sh
 npm ci
@@ -40,20 +42,26 @@ uniquement `dist/`. Aucun identifiant n’est intégré à l’application.
 Le secret doit contenir les identifiants JSON d’un principal de service Azure :
 `clientId`, `clientSecret`, `subscriptionId`, `tenantId`. Ne les ajoutez jamais au
 dépôt. Le principal doit pouvoir créer le groupe et le compte de stockage,
-modifier la configuration du site et récupérer les clés du compte pour publier
-les blobs. Le rôle Contributor sur l’abonnement permet le provisionnement initial ;
-pour limiter sa portée, créez d’abord le groupe et attribuez le rôle à ce groupe.
+modifier la configuration du site et publier les blobs avec Microsoft Entra ID,
+sans utiliser les clés du compte. Le rôle Contributor sur l’abonnement permet
+le provisionnement initial ; pour limiter sa portée, créez d’abord le groupe et
+attribuez le rôle à ce groupe. Attribuez aussi au principal le rôle
+**Storage Blob Data Contributor** sur le compte de stockage avant la publication.
+Un rôle Owner ou Contributor seul ne donne pas accès aux données des blobs.
+Lors d’un premier provisionnement, l’attribution de ce rôle peut nécessiter un
+second lancement du workflow, après propagation des autorisations.
 
 Variables GitHub facultatives :
 
 | Variable | Valeur par défaut |
 | --- | --- |
 | `AZURE_RESOURCE_GROUP` | `rg-japon2027-13j` |
-| `AZURE_LOCATION` | `westeurope` |
+| `AZURE_LOCATION` | `swedencentral` |
 | `AZURE_STORAGE_ACCOUNT` | Nom stable calculé à partir du dépôt et de l’abonnement |
 
 Un nom de compte personnalisé doit être unique dans Azure et contenir 3 à 24
-lettres minuscules ou chiffres. Le compte doit autoriser l’authentification par clé.
+lettres minuscules ou chiffres. Le workflow active l’accès réseau public requis
+par le site et désactive l’authentification par clé partagée.
 Le workflow ne supprime pas les ressources et peut occasionner des frais Azure.
 Le site est volontairement public ; ne placez aucune donnée personnelle dans
 ses sources. L’accès public anonyme aux conteneurs de blobs reste désactivé,
