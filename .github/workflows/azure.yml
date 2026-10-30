@@ -37,7 +37,7 @@ jobs:
       url: ${{ steps.publish.outputs.url }}
     env:
       AZURE_RESOURCE_GROUP: ${{ vars.AZURE_RESOURCE_GROUP || 'rg-japon2027-13j' }}
-      AZURE_LOCATION: ${{ vars.AZURE_LOCATION || 'westeurope' }}
+      AZURE_LOCATION: ${{ vars.AZURE_LOCATION || 'swedencentral' }}
       AZURE_STORAGE_ACCOUNT: ${{ vars.AZURE_STORAGE_ACCOUNT }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
