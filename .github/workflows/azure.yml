@@ -1,0 +1,95 @@
+name: Build and deploy to Azure
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: azure-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - run: node --check src/main.js && node --check src/data.js
+      - run: npm run build
+
+  deploy:
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+      url: ${{ steps.publish.outputs.url }}
+    env:
+      AZURE_RESOURCE_GROUP: ${{ vars.AZURE_RESOURCE_GROUP || 'rg-japon2027-13j' }}
+      AZURE_LOCATION: ${{ vars.AZURE_LOCATION || 'westeurope' }}
+      AZURE_STORAGE_ACCOUNT: ${{ vars.AZURE_STORAGE_ACCOUNT }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci && npm run build
+      - name: Sign in to Azure
+        uses: azure/login@a457da9ea143d694b1b9c7c869ebb04ebe844ef5 # v2.3.0
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+      - name: Provision and publish static website
+        id: publish
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ -z "$AZURE_STORAGE_ACCOUNT" ]]; then
+            subscription=$(az account show --query id --output tsv)
+            suffix=$(printf '%s' "$GITHUB_REPOSITORY:$subscription" | sha256sum | cut -c1-16)
+            AZURE_STORAGE_ACCOUNT="japon27${suffix}"
+          fi
+          az group create \
+            --name "$AZURE_RESOURCE_GROUP" \
+            --location "$AZURE_LOCATION" --output none
+          if ! az storage account show \
+            --name "$AZURE_STORAGE_ACCOUNT" \
+            --resource-group "$AZURE_RESOURCE_GROUP" --output none 2>/dev/null; then
+            az storage account create \
+              --name "$AZURE_STORAGE_ACCOUNT" \
+              --resource-group "$AZURE_RESOURCE_GROUP" \
+              --location "$AZURE_LOCATION" \
+              --kind StorageV2 --sku Standard_LRS \
+              --https-only true --min-tls-version TLS1_2 \
+              --allow-blob-public-access false --output none
+          fi
+          az storage blob service-properties update \
+            --account-name "$AZURE_STORAGE_ACCOUNT" --auth-mode key \
+            --static-website true --index-document index.html \
+            --404-document index.html --output none
+          az storage blob upload-batch \
+            --account-name "$AZURE_STORAGE_ACCOUNT" --auth-mode key \
+            --destination '$web' --source dist --overwrite true \
+            --content-cache-control 'no-cache' --output none
+          url=$(az storage account show \
+            --name "$AZURE_STORAGE_ACCOUNT" \
+            --resource-group "$AZURE_RESOURCE_GROUP" \
+            --query primaryEndpoints.web --output tsv)
+          echo "url=$url" >> "$GITHUB_OUTPUT"
+          printf '### Carnet de voyage publié\n\n%s\n' "$url" >> "$GITHUB_STEP_SUMMARY"
+          curl --fail --silent --show-error --retry 8 --retry-all-errors \
+            --retry-delay 10 "$url" --output /tmp/japon-home.html
+          grep -q 'Merveilles du Japon' /tmp/japon-home.html

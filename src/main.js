@@ -87,7 +87,7 @@ document.querySelector('#app').innerHTML = `
         <div class="day-grid">${days.map((day) => `
           <details class="day-card" id="jour-${day.day}" data-category="${day.tag}">
             <summary><div class="day-image-wrap"><img src="${day.image}" alt="${day.alt}" loading="lazy" decoding="async" width="900" height="600"><span class="day-number">J${String(day.day).padStart(2, '0')}</span><span class="image-tag">${day.tag}</span></div>
-              <div class="day-summary"><p class="day-date">${dateLabel(day.day)} 2027 <span>${day.distance || 'À votre rythme'}</span></p><h3>${day.title}</h3><p class="day-route">${day.route}</p><div class="day-bottom"><span>${icon('moon')}${day.stay}</span><span class="expand-icon" aria-hidden="true">+</span></div></div>
+              <div class="day-summary" data-print-day="Jour ${day.day}"><p class="day-date">${dateLabel(day.day)} 2027 <span>${day.distance || 'Durée non précisée'}</span></p><h3>${day.title}</h3><p class="day-route">${day.route}</p><div class="day-bottom"><span>${icon('moon')}${day.stay}</span><span class="expand-icon" aria-hidden="true">+</span></div></div>
             </summary>
             <div class="day-detail"><p>${day.text}</p><ul>${day.items.map((item) => `<li>${item}</li>`).join('')}</ul><p class="meal-note">${icon('bowl')}${day.meals}</p>${externalLink(mapLink(day.route.replaceAll('›', ' ')), 'Repérer l’étape')}</div>
           </details>`).join('')}</div>

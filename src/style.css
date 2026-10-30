@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;450;500;550;600;650;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP&text=%E6%97%A5%E6%9C%AC%E3%81%AE%E6%97%85%E3%81%BE%E3%81%9F%E3%81%AD&display=swap');
 
 :root {
   font-family: 'DM Sans', sans-serif;
@@ -229,6 +230,7 @@ details[open] .expand-icon { transform: rotate(45deg); }
 .footer-inner > div:last-child { text-align: right; }
 .footer-inner small { display: block; margin-top: 8px; font-size: 8px; color: var(--muted); }
 .footer-inner small a { text-decoration: underline; }
+.brand-seal, .hero-japanese, .closing > span { font-family: 'Noto Serif JP', serif; }
 @keyframes enter { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes hero-zoom { from { transform: scale(1.04); } to { transform: scale(1); } }
 @media (min-width: 1500px) { .hero-content { padding-top: 115px; } }
