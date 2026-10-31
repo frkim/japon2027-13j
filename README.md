@@ -23,16 +23,27 @@ npm run dev
 ```sh
 node --check src/main.js
 node --check src/data.js
+npm test
 npm run build
 npm run preview
 ```
 
-Il n’existait pas d’infrastructure de tests dans le dépôt. Le workflow vérifie
+Les tests utilisent le runner natif de Node.js. Le workflow vérifie les tests,
 la syntaxe JavaScript et le build de production à chaque pull request.
 
 Les données sont centralisées dans `src/data.js`, le rendu et les interactions
 dans `src/main.js`, les styles responsive et d’impression dans `src/style.css`.
 `dist/` et `node_modules/` ne sont pas versionnés.
+
+La carte Leaflet utilise le fond OpenStreetMap et distingue les visites/étapes,
+les excursions du programme et les cinq lieux de couchage. Chaque catégorie et
+le tracé peuvent être masqués séparément. Les repères donnent accès aux journées
+du carnet, même après filtrage du programme. Une liste des lieux permet aussi de
+sélectionner un repère au clavier ; elle remplace la carte à l’impression.
+Les positions sont indicatives (centres de villes ou quartiers pour les
+hébergements, adresses à confirmer) et le tracé n’est pas un calcul routier.
+Les coordonnées et l’ordre du circuit sont dans `src/map-data.js`, les
+interactions cartographiques dans `src/trip-map.js`.
 
 ## Déploiement Azure
 
@@ -95,5 +106,6 @@ provient d’Unsplash ([licence](https://unsplash.com/license)). La photo du
 Mont-Koya, également fournie pour le carnet, est conservée localement.
 L’illustration SVG locale prend le relais si une photo échoue.
 Les polices Google Fonts disposent de polices système de secours. Les photos
-d’ambiance et polices distantes nécessitent une connexion ; les outils du carnet ne
-dépendent d’aucun service tiers.
+d’ambiance, polices distantes et tuiles OpenStreetMap nécessitent une connexion.
+Leaflet est livré avec le site ; les repères, leur liste, le programme, la
+checklist et le convertisseur restent utilisables sans le fond de carte.
