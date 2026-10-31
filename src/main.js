@@ -70,7 +70,6 @@ document.querySelector('#app').innerHTML = `
         <div class="intro-copy"><p>Une nuit dans un monastère bouddhiste, des sanctuaires classés UNESCO, des châteaux chargés d’histoire… Puis Hakone et le Mont Fuji, avant l’effervescence de Tokyo.</p><p>Un circuit complet accompagné d’un guide francophone, pour découvrir les incontournables, la culture, les traditions et la gastronomie du Japon.</p><a class="text-link" href="#itineraire">Le fil du voyage ${icon('arrow')}</a></div>
       </section>
       <div class="highlights">${highlights.map(([name, title, text]) => `<article>${icon(name)}<h3>${title}</h3><p>${text}</p></article>`).join('')}</div>
-      <aside class="notice registration">${icon('calendar')}<div><strong>Inscriptions du mardi 1er au mercredi 30 septembre 2026</strong><p>Voyage exclusivement réservé aux adultes : le rythme du circuit et ses nombreuses étapes ne sont pas adaptés aux enfants.</p></div><span class="small-tag">À NOTER</span></aside>
 
       <section id="itineraire" class="route-section section-space" aria-labelledby="route-title">
         <div class="section-heading"><div><p class="eyebrow">LE FIL DU VOYAGE</p><h2 id="route-title">Une traversée <em>inoubliable.</em></h2></div><span class="section-note">D’ouest en est, au rythme du Japon</span></div>
