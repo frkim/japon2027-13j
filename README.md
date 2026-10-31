@@ -5,6 +5,9 @@ Carnet de voyage public, responsive et sans mot de passe : 13 journées filtrabl
 parcours interactif, 5 hébergements, vols Finnair, formalités, prestations et
 conseils pratiques. Checklist enregistrée localement, convertisseur indicatif
 euros/yens et impression de l’intégralité du carnet, même après filtrage.
+Les textes principaux sont affichés en 18 px et les informations secondaires en
+16 px avec les réglages par défaut du navigateur, y compris sur mobile. Les
+tailles en `rem` respectent la taille de police choisie dans le navigateur.
 
 ## Développement
 
@@ -81,16 +84,18 @@ revérifiés avant le départ. La donnée électrique du dossier est conservée 
 complétée par la correction de l’office du tourisme japonais :
 [100 V, 50/60 Hz](https://www.japan.travel/en/plan/plug-and-electricity/).
 
-Photos d’ambiance, pas des photos des hôtels : Osaka, Nara, Himeji, Hikone,
-Kamakura et Tokyo ont été fournies pour le carnet ;
-[Mont Fuji](https://images.unsplash.com/photo-1490806843957-31f4c9a91c65),
-[Kyoto](https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e),
-[ambiance urbaine à Tokyo](https://images.unsplash.com/photo-1519608487953-e999c86e7455) et
-[temple](https://images.unsplash.com/photo-1478436127897-769e1b3f0f36)
+Les cinq photos des hébergements, fournies pour le carnet, sont conservées dans
+`public/hotels/` et associées aux établissements dans `src/data.js`.
+Elles sont servies localement et restent non contractuelles.
+
+Les photos des étapes d’Osaka, Nara, Himeji, Hikone, Kamakura et Tokyo ont été
+fournies pour le carnet. Les photos d’ambiance du
+[Mont Fuji](https://images.unsplash.com/photo-1490806843957-31f4c9a91c65) et de
+[Kyoto](https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e)
 proviennent d’Unsplash ([licence](https://unsplash.com/license)).
 Photo du Mont-Koya : [663highland / Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Danjogaran_Koyasan12n3200.jpg),
 [CC BY 2.5](https://creativecommons.org/licenses/by/2.5/) ; recadrée à l’affichage.
 L’illustration SVG locale prend le relais si une photo échoue.
 Les polices Google Fonts disposent de polices système de secours. Les photos
-et polices distantes nécessitent une connexion ; les outils du carnet ne
+d’ambiance et polices distantes nécessitent une connexion ; les outils du carnet ne
 dépendent d’aucun service tiers.

@@ -45,7 +45,7 @@ document.querySelector('#app').innerHTML = `
       <div class="hero-content">
         <p class="eyebrow hero-eyebrow"><span></span> L’ART DE DÉCOUVRIR · MAI 2027</p>
         <h1 id="hero-title">Merveilles<br>du <em>Japon.</em></h1>
-        <p class="hero-description">Des temples paisibles de Kyoto aux lumières de Tokyo.<br>Treize jours pour rencontrer un pays extraordinaire.</p>
+        <p class="hero-description">Des temples paisibles de Kyoto aux lumières de Tokyo.<br> Treize jours pour rencontrer un pays extraordinaire.</p>
         <a class="button button-light" href="#programme">Explorer le voyage ${icon('arrow')}</a>
       </div>
       <div class="hero-japanese" lang="ja" aria-hidden="true">日本の旅<span>LE VOYAGE, AUTREMENT.</span></div>
@@ -98,8 +98,8 @@ document.querySelector('#app').innerHTML = `
 
       <section id="hebergements" class="section-space" aria-labelledby="hotel-title">
         <div class="section-heading"><div><p class="eyebrow">POSER SES VALISES</p><h2 id="hotel-title">Des nuits qui font <em>le voyage.</em></h2></div><span class="section-note">${icon('moon')} 5 hébergements · 10 nuits</span></div>
-        <div class="hotel-grid">${hotels.map((hotel, i) => `<article class="hotel-card"><div class="hotel-image"><img src="${hotel.image}" alt="Paysage d’ambiance au Japon, et non une photo de l’établissement" loading="lazy" decoding="async" width="900" height="600"><span class="night-badge">${hotel.nights} nuit${hotel.nights > 1 ? 's' : ''}</span></div><div class="hotel-content"><p class="eyebrow">${hotel.city} <span>0${i + 1}</span></p><h3>${hotel.name}</h3><p class="hotel-dates">${icon('calendar')}${hotel.dates} 2027</p><span class="hotel-type">${hotel.type}</span><p>${hotel.note}</p>${externalLink(mapLink(hotel.name), 'Voir sur la carte')}</div></article>`).join('')}</div>
-        <aside class="notice">${icon('moon')}<p>Liste non contractuelle, sous réserve de disponibilités au moment de la réservation. Hôtels 3* en chambre double, mentionnés ou similaires. Les dates de nuitées sont déduites de l’itinéraire. Photos d’ambiance, non contractuelles.</p></aside>
+        <div class="hotel-grid">${hotels.map((hotel, i) => `<article class="hotel-card"><div class="hotel-image"><img src="${hotel.image}" alt="Vue de l’établissement : ${hotel.name}" loading="lazy" decoding="async" width="900" height="600"><span class="night-badge">${hotel.nights} nuit${hotel.nights > 1 ? 's' : ''}</span></div><div class="hotel-content"><p class="eyebrow">${hotel.city} <span>0${i + 1}</span></p><h3>${hotel.name}</h3><p class="hotel-dates">${icon('calendar')}${hotel.dates} 2027</p><span class="hotel-type">${hotel.type}</span><p>${hotel.note}</p>${externalLink(mapLink(hotel.name), 'Voir sur la carte')}</div></article>`).join('')}</div>
+        <aside class="notice">${icon('moon')}<p>Liste non contractuelle, sous réserve de disponibilités au moment de la réservation. Hôtels 3* en chambre double, mentionnés ou similaires. Les dates de nuitées sont déduites de l’itinéraire. Photos des établissements fournies pour le carnet, non contractuelles.</p></aside>
       </section>
 
       <section id="vols" class="section-space" aria-labelledby="flights-title">
@@ -129,7 +129,7 @@ document.querySelector('#app').innerHTML = `
     </section>
     <section class="closing container"><span lang="ja" aria-hidden="true">またね</span><p class="eyebrow">IL Y A DES VOYAGES QUI RESTENT.</p><h2>Celui-ci en fera <em>partie.</em></h2><a class="text-link" href="#accueil">Revenir au début ↑</a></section>
   </main>
-  <footer class="site-footer"><div class="container footer-inner"><a class="brand" href="#accueil"><span class="brand-seal" lang="ja">日</span><span>Japon <b>2027</b><small>MERVEILLES DU JAPON</small></span></a><p>17 — 29 mai 2027 · 13 jours / 10 nuits<br>Un carnet pour ne rien oublier.</p><div><button class="text-link" data-print>${icon('print')} Imprimer mon carnet</button><small>Photos : <a href="https://unsplash.com/license" target="_blank" rel="noopener noreferrer">Unsplash</a> · illustration de secours originale</small></div></div></footer>
+  <footer class="site-footer"><div class="container footer-inner"><a class="brand" href="#accueil"><span class="brand-seal" lang="ja">日</span><span>Japon <b>2027</b><small>MERVEILLES DU JAPON</small></span></a><p>17 — 29 mai 2027 · 13 jours / 10 nuits<br>Un carnet pour ne rien oublier.</p><div><button class="text-link" data-print>${icon('print')} Imprimer mon carnet</button><small>Photos d’ambiance : <a href="https://unsplash.com/license" target="_blank" rel="noopener noreferrer">Unsplash</a> · photos des hébergements fournies pour le carnet · illustration de secours originale</small></div></div></footer>
 `;
 
 document.querySelectorAll('img').forEach((image) => {
