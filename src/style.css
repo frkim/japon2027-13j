@@ -160,7 +160,6 @@ details[open] .expand-icon { transform: rotate(45deg); }
 .meal-note { background: #f3f2eb; padding: 10px; display: flex; align-items: flex-start; gap: 8px; }
 .meal-note .icon { width: 16px; height: 16px; margin-top: 3px; }
 .fine-print { font-size: 1rem; color: var(--muted); line-height: 1.9; margin: 20px 0 0; }
-.photo-credit a { text-decoration: underline; }
 .empty-state { text-align: center; padding: 60px 20px; color: var(--muted); font-size: 1.125rem; }
 .empty-state h3 { color: var(--ink); margin-top: 15px; }
 .hotel-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-bottom: 24px; }
