@@ -33,7 +33,11 @@ document.querySelector('#app').innerHTML = `
       <a class="brand" href="#accueil" aria-label="Merveilles du Japon, accueil"><span class="brand-seal" lang="ja">日</span><span>Japon <b>2027</b><small>LE CARNET DE VOYAGE</small></span></a>
       <button class="menu-button" aria-label="Ouvrir la navigation" aria-expanded="false" aria-controls="navigation">${icon('menu')}</button>
       <nav id="navigation" aria-label="Navigation principale">
-        <a href="#accueil" class="active">L’essentiel</a><a href="#programme">Le programme</a><a href="#hebergements">Hébergements</a><a href="#vols">Les vols</a><a href="#pratique">Infos pratiques</a>
+        <a href="#accueil" class="active">${icon('sun')}L’essentiel</a>
+        <a href="#programme">${icon('calendar')}Le programme</a>
+        <a href="#hebergements">${icon('moon')}Hébergements</a>
+        <a href="#vols">${icon('plane')}Les vols</a>
+        <a href="#pratique">${icon('compass')}Infos pratiques</a>
       </nav>
       <button class="print-button" data-print>${icon('print')}<span>Mon carnet</span></button>
     </div>
