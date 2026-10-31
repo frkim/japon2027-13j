@@ -81,12 +81,16 @@ revérifiés avant le départ. La donnée électrique du dossier est conservée 
 complétée par la correction de l’office du tourisme japonais :
 [100 V, 50/60 Hz](https://www.japan.travel/en/plan/plug-and-electricity/).
 
-Photos d’ambiance depuis Unsplash ([licence](https://unsplash.com/license)),
-pas des photos des hôtels : [Mont Fuji](https://images.unsplash.com/photo-1490806843957-31f4c9a91c65),
+Les cinq photos des hébergements, fournies pour le carnet, sont conservées dans
+`public/hotels/` et associées aux établissements dans `src/data.js`.
+Elles sont servies localement et restent non contractuelles.
+
+Photos d’ambiance depuis Unsplash ([licence](https://unsplash.com/license))
+pour les autres sections : [Mont Fuji](https://images.unsplash.com/photo-1490806843957-31f4c9a91c65),
 [Kyoto](https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e),
 [Tokyo](https://images.unsplash.com/photo-1519608487953-e999c86e7455),
 [temple](https://images.unsplash.com/photo-1478436127897-769e1b3f0f36).
 L’illustration SVG locale prend le relais si une photo échoue.
 Les polices Google Fonts disposent de polices système de secours. Les photos
-et polices distantes nécessitent une connexion ; les outils du carnet ne
+d’ambiance et polices distantes nécessitent une connexion ; les outils du carnet ne
 dépendent d’aucun service tiers.
