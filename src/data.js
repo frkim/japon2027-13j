@@ -6,11 +6,11 @@ export const photos = {
 };
 
 export const hotels = [
-  { name: 'Hôtel Monastère Rengejo-In', city: 'Mont-Koya', nights: 1, dates: '18 → 19 mai', type: 'Nuit au monastère', image: photos.temple, note: 'Hébergement traditionnel : sanitaires communs, séparés entre hommes et femmes. Pas de chambre individuelle.' },
-  { name: 'Vessel Hotel Campana Gojo 3*', city: 'Kyoto', nights: 3, dates: '19 → 22 mai', type: 'Hôtel · chambre double', image: photos.kyoto, note: 'Votre point de départ pour les étapes à Kyoto, Uji et Himeji.' },
-  { name: 'Hôtel Jal City 3*', city: 'Nagoya', nights: 1, dates: '22 → 23 mai', type: 'Hôtel · chambre double', image: photos.tokyo, note: 'Une nuit à Nagoya après l’étape à Hikone.' },
-  { name: 'Ryokan Ichinoyu Honkan 3*', city: 'Hakone', nights: 1, dates: '23 → 24 mai', type: 'Nuit en ryokan', image: photos.fuji, note: 'Hébergement traditionnel : sanitaires communs, séparés entre hommes et femmes. Prévoyez un petit sac pour la nuit.' },
-  { name: 'Sunshine City Prince Ikebukuro 3*', city: 'Tokyo', nights: 4, dates: '24 → 28 mai', type: 'Hôtel · chambre double', image: photos.tokyo, note: 'Quatre nuits pour découvrir Tokyo, entre tradition et modernité.' },
+  { name: 'Hôtel Monastère Rengejo-In', city: 'Mont-Koya', nights: 1, dates: '18 → 19 mai', type: 'Nuit au monastère', image: '/hotels/rengejo-in.png', note: 'Hébergement traditionnel : sanitaires communs, séparés entre hommes et femmes. Pas de chambre individuelle.' },
+  { name: 'Vessel Hotel Campana Gojo 3*', city: 'Kyoto', nights: 3, dates: '19 → 22 mai', type: 'Hôtel · chambre double', image: '/hotels/vessel-hotel-campana-gojo.png', note: 'Votre point de départ pour les étapes à Kyoto, Uji et Himeji.' },
+  { name: 'Hôtel Jal City 3*', city: 'Nagoya', nights: 1, dates: '22 → 23 mai', type: 'Hôtel · chambre double', image: '/hotels/jal-city.png', note: 'Une nuit à Nagoya après l’étape à Hikone.' },
+  { name: 'Ryokan Ichinoyu Honkan 3*', city: 'Hakone', nights: 1, dates: '23 → 24 mai', type: 'Nuit en ryokan', image: '/hotels/ichinoyu-honkan.png', note: 'Hébergement traditionnel : sanitaires communs, séparés entre hommes et femmes. Prévoyez un petit sac pour la nuit.' },
+  { name: 'Sunshine City Prince Ikebukuro 3*', city: 'Tokyo', nights: 4, dates: '24 → 28 mai', type: 'Hôtel · chambre double', image: '/hotels/sunshine-city-prince-ikebukuro.png', note: 'Quatre nuits pour découvrir Tokyo, entre tradition et modernité.' },
 ];
 
 export const days = [
