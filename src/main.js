@@ -97,6 +97,7 @@ document.querySelector('#app').innerHTML = `
           </details>`).join('')}</div>
         <div id="no-results" class="empty-state" hidden>${icon('search')}<h3>Aucune étape trouvée</h3><p>Essayez une autre ville ou affichez tout le voyage.</p><button class="button button-dark" id="reset-search">Réinitialiser les filtres</button></div>
         <p class="fine-print">Distances et durées indicatives, reprises du programme. Le détail des visites, les horaires et les repas non mentionnés restent à confirmer avec l’organisateur. Les suggestions ne sont pas incluses.</p>
+        <p class="fine-print photo-credit">Photo du Mont-Koya : <a href="https://commons.wikimedia.org/wiki/File:Danjogaran_Koyasan12n3200.jpg" target="_blank" rel="noopener noreferrer">663highland / Wikimedia Commons</a>, <a href="https://creativecommons.org/licenses/by/2.5/" target="_blank" rel="noopener noreferrer">CC BY 2.5</a> (recadrée à l’affichage).</p>
       </section>
 
       <section id="hebergements" class="section-space" aria-labelledby="hotel-title">
