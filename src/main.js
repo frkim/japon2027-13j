@@ -45,7 +45,7 @@ document.querySelector('#app').innerHTML = `
       <div class="hero-content">
         <p class="eyebrow hero-eyebrow"><span></span> L’ART DE DÉCOUVRIR · MAI 2027</p>
         <h1 id="hero-title">Merveilles<br>du <em>Japon.</em></h1>
-        <p class="hero-description">Des temples paisibles de Kyoto aux lumières de Tokyo.<br>Treize jours pour rencontrer un pays extraordinaire.</p>
+        <p class="hero-description">Des temples paisibles de Kyoto aux lumières de Tokyo.<br> Treize jours pour rencontrer un pays extraordinaire.</p>
         <a class="button button-light" href="#programme">Explorer le voyage ${icon('arrow')}</a>
       </div>
       <div class="hero-japanese" lang="ja" aria-hidden="true">日本の旅<span>LE VOYAGE, AUTREMENT.</span></div>

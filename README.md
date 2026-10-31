@@ -5,6 +5,9 @@ Carnet de voyage public, responsive et sans mot de passe : 13 journées filtrabl
 parcours interactif, 5 hébergements, vols Finnair, formalités, prestations et
 conseils pratiques. Checklist enregistrée localement, convertisseur indicatif
 euros/yens et impression de l’intégralité du carnet, même après filtrage.
+Les textes principaux sont affichés en 18 px et les informations secondaires en
+16 px avec les réglages par défaut du navigateur, y compris sur mobile. Les
+tailles en `rem` respectent la taille de police choisie dans le navigateur.
 
 ## Développement
 
