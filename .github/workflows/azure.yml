@@ -45,6 +45,7 @@ jobs:
           NODE
       - run: npm ci
       - run: node --check src/main.js && node --check src/data.js
+      - run: npm test
       - run: npm run build
 
   deploy:

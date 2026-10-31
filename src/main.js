@@ -1,4 +1,5 @@
 import './style.css';
+import { initTripMap } from './trip-map.js';
 import { photos, hotels, days, flights, highlights, included, excluded, important, formalities, practical, checklist } from './data.js';
 
 const paths = {
@@ -34,6 +35,7 @@ document.querySelector('#app').innerHTML = `
       <button class="menu-button" aria-label="Ouvrir la navigation" aria-expanded="false" aria-controls="navigation">${icon('menu')}</button>
       <nav id="navigation" aria-label="Navigation principale">
         <a href="#accueil" class="active">${icon('sun')}L’essentiel</a>
+        <a href="#itineraire">${icon('pin')}La carte</a>
         <a href="#programme">${icon('calendar')}Le programme</a>
         <a href="#hebergements">${icon('moon')}Hébergements</a>
         <a href="#vols">${icon('plane')}Les vols</a>
@@ -77,6 +79,23 @@ document.querySelector('#app').innerHTML = `
           <div class="route-topline"><span>${icon('plane')} Paris → Osaka</span><span>JAPON · HONSHŪ</span><span>Tokyo → Paris ${icon('plane')}</span></div>
           <div class="route-stops" aria-label="Étapes principales, accéder à la journée">${[['Osaka', 2, 'Arrivée'], ['Mont-Koya', 2, '1 nuit'], ['Nara', 3, 'Étape'], ['Kyoto', 4, '3 nuits'], ['Uji · Himeji', 5, 'Étapes'], ['Hikone · Nagoya', 6, '1 nuit'], ['Yaizu · Hakone', 7, '1 nuit'], ['Kamakura · Tokyo', 8, '4 nuits']].map(([city, day, note], i) => `<button class="route-stop" data-day="${day}"><span class="stop-dot">${String(i + 1).padStart(2, '0')}</span><strong>${city}</strong><small>${note}</small></button>`).join('')}</div>
           <p class="route-footnote">Schéma des étapes, non à l’échelle. Sélectionnez une étape pour ouvrir sa journée.</p>
+        </div>
+        <div id="trip-map-section" class="trip-map-section">
+          <h3>Visites, excursions et nuits sur la carte</h3>
+          <div class="map-toolbar">
+            <fieldset class="map-filters"><legend class="sr-only">Afficher les éléments de la carte</legend>
+              <label><input type="checkbox" data-map-layer="visit" checked><span class="map-key map-key-visit">V</span> Visites et étapes</label>
+              <label><input type="checkbox" data-map-layer="excursion" checked><span class="map-key map-key-excursion">E</span> Excursions</label>
+              <label><input type="checkbox" data-map-layer="stay" checked><span class="map-key map-key-stay">N</span> Lieux de couchage</label>
+              <label><input type="checkbox" data-map-layer="route" checked><span class="map-route-key" aria-hidden="true"></span> Parcours</label>
+            </fieldset>
+            <button type="button" class="filter" id="map-reset">Recentrer le circuit</button>
+          </div>
+          <p class="fine-print" id="map-status" role="status" aria-live="polite"></p>
+          <div id="trip-map" class="trip-map" role="region" aria-label="Carte interactive du circuit au Japon" aria-describedby="map-help" tabindex="0"></div>
+          <p id="map-error" class="notice" role="status" hidden>Le fond de carte n’a pas pu être chargé. Vérifiez votre connexion. Les repères et la liste des lieux restent disponibles.</p>
+          <p class="fine-print" id="map-help">Fond OpenStreetMap · Déplacez la carte et utilisez + / − pour zoomer, ou deux doigts sur mobile. Au clavier : flèches pour déplacer la carte, + / − pour zoomer et Entrée sur un repère pour le consulter. Le tracé relie les étapes à titre indicatif : ce n’est pas un itinéraire routier. Les visites sont situées au centre des villes ; les repères des hébergements sont approximatifs, adresses à confirmer. Les excursions correspondent aux étapes du programme, sans ajout de visites non confirmées.</p>
+          <details class="map-place-list"><summary>Consulter la liste des lieux</summary><ul id="map-places"></ul></details>
         </div>
       </section>
 
@@ -177,13 +196,15 @@ function resetFilters() {
   filterDays();
 }
 document.querySelector('#reset-search').addEventListener('click', resetFilters);
-document.querySelectorAll('[data-day]').forEach((button) => button.addEventListener('click', () => {
+function openDay(day) {
   resetFilters();
-  const card = document.querySelector(`#jour-${button.dataset.day}`);
+  const card = document.querySelector(`#jour-${day}`);
   card.open = true;
   card.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth', block: 'start' });
   card.querySelector('summary').focus({ preventScroll: true });
-}));
+}
+document.querySelectorAll('[data-day]').forEach((button) => button.addEventListener('click', () => openDay(button.dataset.day)));
+initTripMap(openDay);
 
 const menuButton = document.querySelector('.menu-button');
 const navigation = document.querySelector('#navigation');
@@ -212,7 +233,7 @@ const navObserver = new IntersectionObserver((entries) => {
     navigation.querySelectorAll('a').forEach((link) => link.classList.toggle('active', link.hash === `#${entry.target.id}`));
   });
 }, { rootMargin: '-15% 0px -65% 0px' });
-['accueil', 'programme', 'hebergements', 'vols', 'pratique'].forEach((id) => navObserver.observe(document.getElementById(id)));
+['accueil', 'itineraire', 'programme', 'hebergements', 'vols', 'pratique'].forEach((id) => navObserver.observe(document.getElementById(id)));
 
 const checklistKey = 'japon2027-checklist-v1';
 const checkboxes = [...document.querySelectorAll('[data-check]')];
