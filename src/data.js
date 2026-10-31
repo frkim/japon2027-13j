@@ -1,35 +1,42 @@
 export const photos = {
+  osaka: '/osaka.png',
+  koya: '/mont-koya.jpg',
+  nara: '/nara.png',
+  himeji: '/himeji.png',
+  hikone: '/hikone.png',
+  kamakura: '/kamakura.png',
+  tokyo: '/tokyo.png',
   fuji: 'https://images.unsplash.com/photo-1490806843957-31f4c9a91c65?auto=format&fit=crop&w=2000&q=85',
   kyoto: 'https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=900&q=80',
-  tokyo: 'https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=900&q=80',
+  urban: 'https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=900&q=80',
   temple: 'https://images.unsplash.com/photo-1478436127897-769e1b3f0f36?auto=format&fit=crop&w=900&q=80',
 };
 
 export const hotels = [
   { name: 'Hôtel Monastère Rengejo-In', city: 'Mont-Koya', nights: 1, dates: '18 → 19 mai', type: 'Nuit au monastère', image: photos.temple, note: 'Hébergement traditionnel : sanitaires communs, séparés entre hommes et femmes. Pas de chambre individuelle.' },
   { name: 'Vessel Hotel Campana Gojo 3*', city: 'Kyoto', nights: 3, dates: '19 → 22 mai', type: 'Hôtel · chambre double', image: photos.kyoto, note: 'Votre point de départ pour les étapes à Kyoto, Uji et Himeji.' },
-  { name: 'Hôtel Jal City 3*', city: 'Nagoya', nights: 1, dates: '22 → 23 mai', type: 'Hôtel · chambre double', image: photos.tokyo, note: 'Une nuit à Nagoya après l’étape à Hikone.' },
+  { name: 'Hôtel Jal City 3*', city: 'Nagoya', nights: 1, dates: '22 → 23 mai', type: 'Hôtel · chambre double', image: photos.urban, note: 'Une nuit à Nagoya après l’étape à Hikone.' },
   { name: 'Ryokan Ichinoyu Honkan 3*', city: 'Hakone', nights: 1, dates: '23 → 24 mai', type: 'Nuit en ryokan', image: photos.fuji, note: 'Hébergement traditionnel : sanitaires communs, séparés entre hommes et femmes. Prévoyez un petit sac pour la nuit.' },
   { name: 'Sunshine City Prince Ikebukuro 3*', city: 'Tokyo', nights: 4, dates: '24 → 28 mai', type: 'Hôtel · chambre double', image: photos.tokyo, note: 'Quatre nuits pour découvrir Tokyo, entre tradition et modernité.' },
 ];
 
 export const days = [
-  { day: 1, title: 'Le grand départ', route: 'Paris ✈ Osaka', tag: 'Transport', image: photos.fuji, alt: 'Mont Fuji au-dessus du paysage japonais', distance: '', stay: 'Nuit en vol', text: 'Départ de Paris CDG avec Finnair. Escale à Helsinki avant de poursuivre vers Osaka.', items: ['AY1572 · Paris CDG 10h45 → Helsinki 14h40', 'AY0067 · Helsinki 17h45 → Osaka KIX 12h35 le 18 mai'], meals: 'Repas : selon les prestations aériennes.' },
-  { day: 2, title: 'Une nuit hors du temps', route: 'Osaka › Mont-Koya', tag: 'Culture', image: photos.temple, alt: 'Architecture traditionnelle d’un temple japonais', distance: '70 km / 2h', stay: hotels[0].name, text: 'Arrivée à Osaka à 12h35, puis route vers le Mont Koya. Le monastère bouddhiste est l’un des temps forts du circuit.', items: ['Installation au monastère', 'Petit sac conseillé : la valise reste dans la soute de l’autocar'], meals: 'Repas : non précisés dans les informations fournies.' },
-  { day: 3, title: 'Sur les chemins de l’ancienne capitale', route: 'Mont-Koya › Nara › Kyoto', tag: 'Culture', image: photos.kyoto, alt: 'Rue et architecture traditionnelles à Kyoto', distance: '140 km / 4h40', stay: hotels[1].name, text: 'Départ du Mont-Koya, étape à Nara et arrivée à Kyoto pour trois nuits.', items: ['Étape à Nara', 'Installation à Kyoto'], meals: 'Déjeuner et dîner libres.' },
+  { day: 1, title: 'Le grand départ', route: 'Paris ✈ Osaka', tag: 'Transport', image: photos.osaka, alt: 'Rue animée de Shinsekai à Osaka, avec la tour Tsūtenkaku', distance: '', stay: 'Nuit en vol', text: 'Départ de Paris CDG avec Finnair. Escale à Helsinki avant de poursuivre vers Osaka.', items: ['AY1572 · Paris CDG 10h45 → Helsinki 14h40', 'AY0067 · Helsinki 17h45 → Osaka KIX 12h35 le 18 mai'], meals: 'Repas : selon les prestations aériennes.' },
+  { day: 2, title: 'Une nuit hors du temps', route: 'Osaka › Mont-Koya', tag: 'Culture', image: photos.koya, alt: 'Pagode et temple du complexe Danjō Garan au Mont Koya', distance: '70 km / 2h', stay: hotels[0].name, text: 'Arrivée à Osaka à 12h35, puis route vers le Mont Koya. Le monastère bouddhiste est l’un des temps forts du circuit.', items: ['Installation au monastère', 'Petit sac conseillé : la valise reste dans la soute de l’autocar'], meals: 'Repas : non précisés dans les informations fournies.' },
+  { day: 3, title: 'Sur les chemins de l’ancienne capitale', route: 'Mont-Koya › Nara › Kyoto', tag: 'Culture', image: photos.nara, alt: 'Temple Tōdai-ji se reflétant dans un étang à Nara', distance: '140 km / 4h40', stay: hotels[1].name, text: 'Départ du Mont-Koya, étape à Nara et arrivée à Kyoto pour trois nuits.', items: ['Étape à Nara', 'Installation à Kyoto'], meals: 'Déjeuner et dîner libres.' },
   { day: 4, title: 'L’âme de Kyoto', route: 'Kyoto', tag: 'Culture', image: photos.kyoto, alt: 'Paysage urbain traditionnel de Kyoto', distance: '', stay: hotels[1].name, text: 'Une journée à Kyoto, au cœur du Japon traditionnel, de ses temples et de ses sanctuaires.', items: ['Journée à Kyoto', 'Les sites précis et horaires ne sont pas détaillés dans le programme fourni'], meals: 'Déjeuner et dîner libres.' },
-  { day: 5, title: 'Thé, traditions & châteaux', route: 'Kyoto › Uji › Himeji › Kyoto', tag: 'Culture', image: photos.temple, alt: 'Détails d’architecture japonaise traditionnelle', distance: '290 km / 4h20', stay: hotels[1].name, text: 'Une boucle au départ de Kyoto, avec des étapes à Uji et Himeji, avant de retrouver votre hôtel.', items: ['Étapes à Uji et Himeji', 'Retour à Kyoto pour la nuit'], meals: 'Déjeuner et dîner libres.' },
-  { day: 6, title: 'D’une ville à l’autre', route: 'Kyoto › Hikone › Nagoya', tag: 'Culture', image: photos.temple, alt: 'Temple japonais dans un écrin de verdure', distance: '165 km / 2h30', stay: hotels[2].name, text: 'Le circuit se poursuit vers Hikone, puis Nagoya. Les châteaux historiques japonais font partie des points forts du voyage.', items: ['Étape à Hikone', 'Nuit à Nagoya'], meals: 'Dîner libre. Autres repas non précisés.' },
+  { day: 5, title: 'Thé, traditions & châteaux', route: 'Kyoto › Uji › Himeji › Kyoto', tag: 'Culture', image: photos.himeji, alt: 'Château blanc de Himeji sous un ciel bleu', distance: '290 km / 4h20', stay: hotels[1].name, text: 'Une boucle au départ de Kyoto, avec des étapes à Uji et Himeji, avant de retrouver votre hôtel.', items: ['Étapes à Uji et Himeji', 'Retour à Kyoto pour la nuit'], meals: 'Déjeuner et dîner libres.' },
+  { day: 6, title: 'D’une ville à l’autre', route: 'Kyoto › Hikone › Nagoya', tag: 'Culture', image: photos.hikone, alt: 'Château de Hikone et ses toits traditionnels', distance: '165 km / 2h30', stay: hotels[2].name, text: 'Le circuit se poursuit vers Hikone, puis Nagoya. Les châteaux historiques japonais font partie des points forts du voyage.', items: ['Étape à Hikone', 'Nuit à Nagoya'], meals: 'Dîner libre. Autres repas non précisés.' },
   { day: 7, title: 'À l’horizon, le Mont Fuji', route: 'Nagoya › Yaizu › Hakone', tag: 'Nature', image: photos.fuji, alt: 'Vue sur le Mont Fuji', distance: '300 km / 4h00', stay: hotels[3].name, text: 'Cap sur Yaizu puis Hakone, pour les paysages du Mont Fuji et une nuit en ryokan traditionnel. La visibilité du Fuji dépend de la météo.', items: ['Étape à Yaizu', 'Préparer un petit sac pour la nuit en ryokan'], meals: 'Déjeuner libre. Autres repas non précisés.' },
-  { day: 8, title: 'De Kamakura à la ville électrique', route: 'Hakone › Kamakura › Tokyo', tag: 'Culture', image: photos.tokyo, alt: 'Tokyo illuminée à la tombée de la nuit', distance: '111 km / 3h45', stay: hotels[4].name, text: 'Une étape à Kamakura avant de rejoindre Tokyo. Installation pour quatre nuits dans la capitale.', items: ['Étape à Kamakura', 'Installation à Ikebukuro, Tokyo'], meals: 'Déjeuner et dîner libres.' },
+  { day: 8, title: 'De Kamakura à la ville électrique', route: 'Hakone › Kamakura › Tokyo', tag: 'Culture', image: photos.kamakura, alt: 'Grand Bouddha de Kamakura à ciel ouvert', distance: '111 km / 3h45', stay: hotels[4].name, text: 'Une étape à Kamakura avant de rejoindre Tokyo. Installation pour quatre nuits dans la capitale.', items: ['Étape à Kamakura', 'Installation à Ikebukuro, Tokyo'], meals: 'Déjeuner et dîner libres.' },
   ...[9, 10, 11].map((day) => ({
     day, title: ['Tokyo, mille contrastes', 'La capitale se dévoile', 'Encore un peu de Tokyo'][day - 9],
-    route: 'Tokyo', tag: 'Ville', image: photos.tokyo, alt: 'Ambiance nocturne dans les rues de Tokyo', distance: '',
+    route: 'Tokyo', tag: 'Ville', image: photos.tokyo, alt: 'Panorama nocturne de Tokyo et de la tour de Tokyo', distance: '',
     stay: hotels[4].name, text: 'Tokyo, entre tradition et modernité. Le détail des visites de cette journée n’est pas précisé dans les informations fournies.',
     items: ['Suggestion personnelle, non incluse : flâner dans les quartiers traditionnels ou contemporains', 'Horaires et visites à confirmer avec l’accompagnateur'],
     meals: 'Déjeuner libre. Dîner non précisé.',
   })),
-  { day: 12, title: 'Sayonara, Japon', route: 'Tokyo ✈ Paris', tag: 'Transport', image: photos.tokyo, alt: 'Lumières de Tokyo', distance: '', stay: 'Nuit en vol', text: 'Départ de Tokyo Narita en soirée pour Helsinki, puis correspondance vers Paris le lendemain.', items: ['AY0074 · Tokyo NRT 23h05 → Helsinki 05h55 le 29 mai'], meals: 'Repas : selon les prestations aériennes.' },
+  { day: 12, title: 'Sayonara, Japon', route: 'Tokyo ✈ Paris', tag: 'Transport', image: photos.tokyo, alt: 'Panorama nocturne de Tokyo et de la tour de Tokyo', distance: '', stay: 'Nuit en vol', text: 'Départ de Tokyo Narita en soirée pour Helsinki, puis correspondance vers Paris le lendemain.', items: ['AY0074 · Tokyo NRT 23h05 → Helsinki 05h55 le 29 mai'], meals: 'Repas : selon les prestations aériennes.' },
   { day: 13, title: 'Des souvenirs plein les valises', route: 'Arrivée à Paris', tag: 'Transport', image: photos.fuji, alt: 'Silhouette du Mont Fuji', distance: '', stay: 'Retour à la maison', text: 'Dernière correspondance à Helsinki et arrivée à Paris CDG à 09h40.', items: ['AY1571 · Helsinki 07h35 → Paris CDG 09h40'], meals: 'Repas : selon les prestations aériennes.' },
 ];
 

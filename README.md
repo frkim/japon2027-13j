@@ -81,11 +81,15 @@ revérifiés avant le départ. La donnée électrique du dossier est conservée 
 complétée par la correction de l’office du tourisme japonais :
 [100 V, 50/60 Hz](https://www.japan.travel/en/plan/plug-and-electricity/).
 
-Photos d’ambiance depuis Unsplash ([licence](https://unsplash.com/license)),
-pas des photos des hôtels : [Mont Fuji](https://images.unsplash.com/photo-1490806843957-31f4c9a91c65),
+Photos d’ambiance, pas des photos des hôtels : Osaka, Nara, Himeji, Hikone,
+Kamakura et Tokyo ont été fournies pour le carnet ;
+[Mont Fuji](https://images.unsplash.com/photo-1490806843957-31f4c9a91c65),
 [Kyoto](https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e),
-[Tokyo](https://images.unsplash.com/photo-1519608487953-e999c86e7455),
-[temple](https://images.unsplash.com/photo-1478436127897-769e1b3f0f36).
+[ambiance urbaine à Tokyo](https://images.unsplash.com/photo-1519608487953-e999c86e7455) et
+[temple](https://images.unsplash.com/photo-1478436127897-769e1b3f0f36)
+proviennent d’Unsplash ([licence](https://unsplash.com/license)).
+Photo du Mont-Koya : [663highland / Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Danjogaran_Koyasan12n3200.jpg),
+[CC BY 2.5](https://creativecommons.org/licenses/by/2.5/) ; recadrée à l’affichage.
 L’illustration SVG locale prend le relais si une photo échoue.
 Les polices Google Fonts disposent de polices système de secours. Les photos
 et polices distantes nécessitent une connexion ; les outils du carnet ne
