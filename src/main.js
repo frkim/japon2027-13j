@@ -115,7 +115,6 @@ document.querySelector('#app').innerHTML = `
           </details>`).join('')}</div>
         <div id="no-results" class="empty-state" hidden>${icon('search')}<h3>Aucune étape trouvée</h3><p>Essayez une autre ville ou affichez tout le voyage.</p><button class="button button-dark" id="reset-search">Réinitialiser les filtres</button></div>
         <p class="fine-print">Distances et durées indicatives, reprises du programme. Le détail des visites, les horaires et les repas non mentionnés restent à confirmer avec l’organisateur. Les suggestions ne sont pas incluses.</p>
-        <p class="fine-print photo-credit">Photo du Mont-Koya : <a href="https://commons.wikimedia.org/wiki/File:Danjogaran_Koyasan12n3200.jpg" target="_blank" rel="noopener noreferrer">663highland / Wikimedia Commons</a>, <a href="https://creativecommons.org/licenses/by/2.5/" target="_blank" rel="noopener noreferrer">CC BY 2.5</a> (recadrée à l’affichage).</p>
       </section>
 
       <section id="hebergements" class="section-space" aria-labelledby="hotel-title">
@@ -151,7 +150,7 @@ document.querySelector('#app').innerHTML = `
     </section>
     <section class="closing container"><span lang="ja" aria-hidden="true">またね</span><p class="eyebrow">IL Y A DES VOYAGES QUI RESTENT.</p><h2>Celui-ci en fera <em>partie.</em></h2><a class="text-link" href="#accueil">Revenir au début ↑</a></section>
   </main>
-  <footer class="site-footer"><div class="container footer-inner"><a class="brand" href="#accueil"><span class="brand-seal" lang="ja">日</span><span>Japon <b>2027</b><small>MERVEILLES DU JAPON</small></span></a><p>17 — 29 mai 2027 · 13 jours / 10 nuits<br>Un carnet pour ne rien oublier.</p><div><button class="text-link" data-print>${icon('print')} Imprimer mon carnet</button><small>Photos d’ambiance : <a href="https://unsplash.com/license" target="_blank" rel="noopener noreferrer">Unsplash</a> · photos des hébergements fournies pour le carnet · illustration de secours originale</small></div></div></footer>
+  <footer class="site-footer"><div class="container footer-inner"><a class="brand" href="#accueil"><span class="brand-seal" lang="ja">日</span><span>Japon <b>2027</b><small>MERVEILLES DU JAPON</small></span></a><p>17 — 29 mai 2027 · 13 jours / 10 nuits<br>Un carnet pour ne rien oublier.</p><div><button class="text-link" data-print>${icon('print')} Imprimer mon carnet</button><small>Photos d’ambiance : <a href="https://unsplash.com/license" target="_blank" rel="noopener noreferrer">Unsplash</a> · Mont-Koya : <a href="https://commons.wikimedia.org/wiki/File:Danjogaran_Koyasan12n3200.jpg" target="_blank" rel="noopener noreferrer">663highland / Wikimedia Commons</a>, <a href="https://creativecommons.org/licenses/by/2.5/" target="_blank" rel="noopener noreferrer">CC BY 2.5</a> (recadrée à l’affichage) · photos des hébergements fournies pour le carnet · illustration de secours originale</small></div></div></footer>
 `;
 
 document.querySelectorAll('img').forEach((image) => {

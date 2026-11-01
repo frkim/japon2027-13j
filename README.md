@@ -104,8 +104,9 @@ fournies pour le carnet. Les photos d’ambiance du
 [Mont Fuji](https://images.unsplash.com/photo-1490806843957-31f4c9a91c65) et de
 [Kyoto](https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e)
 proviennent d’Unsplash ([licence](https://unsplash.com/license)).
-Photo du Mont-Koya : [663highland / Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Danjogaran_Koyasan12n3200.jpg),
-[CC BY 2.5](https://creativecommons.org/licenses/by/2.5/) ; recadrée à l’affichage.
+La photo du Mont-Koya est de [663highland / Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Danjogaran_Koyasan12n3200.jpg),
+[CC BY 2.5](https://creativecommons.org/licenses/by/2.5/) ; elle est recadrée
+à l’affichage et son crédit figure en pied de page.
 L’illustration SVG locale prend le relais si une photo échoue.
 Les polices Google Fonts disposent de polices système de secours. Les photos
 d’ambiance, polices distantes et tuiles OpenStreetMap nécessitent une connexion.
