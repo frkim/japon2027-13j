@@ -43,7 +43,9 @@ sélectionner un repère au clavier ; elle remplace la carte à l’impression.
 La fiche de chaque repère affiche une miniature et des flèches précédent/suivant
 pour parcourir les lieux affichés dans l’ordre de la liste, en boucle et en
 respectant les catégories masquées. Les hébergements suivent les étapes du
-circuit. Une illustration remplace les photos manquantes ou indisponibles.
+circuit. Lorsqu’une fiche est ouverte sur la carte, les touches ← et → permettent
+aussi de parcourir les lieux ; Échap ferme la fiche et rend le focus au repère.
+Une illustration remplace les photos manquantes ou indisponibles.
 Les positions sont indicatives (centres de villes ou quartiers pour les
 hébergements, adresses à confirmer) et le tracé n’est pas un calcul routier.
 Les coordonnées et l’ordre du circuit sont dans `src/map-data.js`, les
