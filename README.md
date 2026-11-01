@@ -40,6 +40,10 @@ les excursions du programme et les cinq lieux de couchage. Chaque catégorie et
 le tracé peuvent être masqués séparément. Les repères donnent accès aux journées
 du carnet, même après filtrage du programme. Une liste des lieux permet aussi de
 sélectionner un repère au clavier ; elle remplace la carte à l’impression.
+La fiche de chaque repère affiche une miniature et des flèches précédent/suivant
+pour parcourir les lieux affichés dans l’ordre de la liste, en boucle et en
+respectant les catégories masquées. Les hébergements suivent les étapes du
+circuit. Une illustration remplace les photos manquantes ou indisponibles.
 Les positions sont indicatives (centres de villes ou quartiers pour les
 hébergements, adresses à confirmer) et le tracé n’est pas un calcul routier.
 Les coordonnées et l’ordre du circuit sont dans `src/map-data.js`, les
@@ -99,14 +103,11 @@ Les cinq photos des hébergements, fournies pour le carnet, sont conservées dan
 `public/hotels/` et associées aux établissements dans `src/data.js`.
 Elles sont servies localement et restent non contractuelles.
 
-Les photos des étapes d’Osaka, Nara, Himeji, Hikone, Kamakura et Tokyo ont été
-fournies pour le carnet. Les photos d’ambiance du
-[Mont Fuji](https://images.unsplash.com/photo-1490806843957-31f4c9a91c65) et de
-[Kyoto](https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e)
-proviennent d’Unsplash ([licence](https://unsplash.com/license)).
-La photo du Mont-Koya est de [663highland / Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Danjogaran_Koyasan12n3200.jpg),
-[CC BY 2.5](https://creativecommons.org/licenses/by/2.5/) ; elle est recadrée
-à l’affichage et son crédit figure en pied de page.
+Les photos des étapes d’Osaka, Kyoto, Nara, Himeji, Hikone, Kamakura et Tokyo
+ont été fournies pour le carnet et sont conservées localement. La photo
+d’ambiance du [Mont Fuji](https://images.unsplash.com/photo-1490806843957-31f4c9a91c65)
+provient d’Unsplash ([licence](https://unsplash.com/license)). La photo du
+Mont-Koya, également fournie pour le carnet, est conservée localement.
 L’illustration SVG locale prend le relais si une photo échoue.
 Les polices Google Fonts disposent de polices système de secours. Les photos
 d’ambiance, polices distantes et tuiles OpenStreetMap nécessitent une connexion.
