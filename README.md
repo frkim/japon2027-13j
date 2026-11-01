@@ -40,6 +40,10 @@ les excursions du programme et les cinq lieux de couchage. Chaque catégorie et
 le tracé peuvent être masqués séparément. Les repères donnent accès aux journées
 du carnet, même après filtrage du programme. Une liste des lieux permet aussi de
 sélectionner un repère au clavier ; elle remplace la carte à l’impression.
+La fiche de chaque repère affiche une miniature et des flèches précédent/suivant
+pour parcourir les lieux affichés dans l’ordre de la liste, en boucle et en
+respectant les catégories masquées. Les hébergements suivent les étapes du
+circuit. Une illustration remplace les photos manquantes ou indisponibles.
 Les positions sont indicatives (centres de villes ou quartiers pour les
 hébergements, adresses à confirmer) et le tracé n’est pas un calcul routier.
 Les coordonnées et l’ordre du circuit sont dans `src/map-data.js`, les
