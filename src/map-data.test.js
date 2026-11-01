@@ -82,6 +82,13 @@ test('geographic markers match all itinerary stops and their days', () => {
 test('five separate stays reference existing hotels and allocate every hotel night once', () => {
   const stays = mapPlaces.filter(({ category }) => category === 'stay');
   const expectedNights = [[2], [3, 4, 5], [6], [7], [8, 9, 10, 11]];
+  const expectedDescriptions = [
+    'Nuit de J2.',
+    'Nuits de J3, J4 et J5.',
+    'Nuit de J6.',
+    'Nuit de J7.',
+    'Nuits de J8, J9, J10 et J11.',
+  ];
   assert.equal(stays.length, 5);
   assert.deepEqual(stays.map(({ hotelIndex }) => hotelIndex).sort((a, b) => a - b), [0, 1, 2, 3, 4]);
   for (const stay of stays) {
@@ -93,7 +100,7 @@ test('five separate stays reference existing hotels and allocate every hotel nig
     assert.equal(stay.imageAlt, `Vue de l’établissement : ${hotel.name}`);
     assert.deepEqual(stay.days, expectedNights[stay.hotelIndex]);
     assert.equal(stay.days.length, hotel.nights);
-    assert.match(stay.description, /Repère approximatif .*adresse à confirmer/);
+    assert.equal(stay.description, expectedDescriptions[stay.hotelIndex]);
     for (const day of stay.days) {
       assert.equal(days.find((entry) => entry.day === day).stay, hotel.name);
     }

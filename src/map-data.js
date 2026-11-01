@@ -85,31 +85,31 @@ export const mapPlaces = [
     id: 'stay-koya', name: hotels[0].name, category: 'stay', hotelIndex: 0,
     image: hotels[0].image, imageAlt: `Vue de l’établissement : ${hotels[0].name}`,
     coordinates: [34.2165, 135.584], days: [2],
-    description: 'Repère approximatif au centre du Mont-Koya ; adresse à confirmer. Nuit de J2.',
+    description: 'Nuit de J2.',
   },
   {
     id: 'stay-kyoto', name: hotels[1].name, category: 'stay', hotelIndex: 1,
     image: hotels[1].image, imageAlt: `Vue de l’établissement : ${hotels[1].name}`,
     coordinates: [34.996, 135.759], days: [3, 4, 5],
-    description: 'Repère approximatif dans le quartier Gojo à Kyoto ; adresse à confirmer. Nuits de J3, J4 et J5.',
+    description: 'Nuits de J3, J4 et J5.',
   },
   {
     id: 'stay-nagoya', name: hotels[2].name, category: 'stay', hotelIndex: 2,
     image: hotels[2].image, imageAlt: `Vue de l’établissement : ${hotels[2].name}`,
     coordinates: [35.169, 136.891], days: [6],
-    description: 'Repère approximatif dans le quartier Fushimi à Nagoya ; adresse à confirmer. Nuit de J6.',
+    description: 'Nuit de J6.',
   },
   {
     id: 'stay-hakone', name: hotels[3].name, category: 'stay', hotelIndex: 3,
     image: hotels[3].image, imageAlt: `Vue de l’établissement : ${hotels[3].name}`,
     coordinates: [35.233, 139.093], days: [7],
-    description: 'Repère approximatif dans le quartier Tonosawa à Hakone ; adresse à confirmer. Nuit de J7.',
+    description: 'Nuit de J7.',
   },
   {
     id: 'stay-tokyo', name: hotels[4].name, category: 'stay', hotelIndex: 4,
     image: hotels[4].image, imageAlt: `Vue de l’établissement : ${hotels[4].name}`,
     coordinates: [35.729, 139.718], days: [8, 9, 10, 11],
-    description: 'Repère approximatif dans le quartier Ikebukuro à Tokyo ; adresse à confirmer. Nuits de J8, J9, J10 et J11.',
+    description: 'Nuits de J8, J9, J10 et J11.',
   },
 ];
 
