@@ -36,6 +36,22 @@ export function initTripMap(openDay) {
   const markers = new Map();
   const navigationControls = new Map();
   let visiblePlaces = mapPlaces;
+  let activePlace = null;
+
+  container.addEventListener('keydown', (event) => {
+    if (!activePlace || event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
+    if (!['ArrowLeft', 'ArrowRight', 'Escape'].includes(event.key)) return;
+    event.preventDefault();
+    event.stopPropagation();
+    if (event.key === 'Escape') {
+      const marker = markers.get(activePlace.id);
+      marker.closePopup();
+      marker.getElement()?.focus({ preventScroll: true });
+    } else {
+      const direction = event.key === 'ArrowLeft' ? 'previous' : 'next';
+      navigationControls.get(activePlace.id)[direction].click();
+    }
+  }, { capture: true });
 
   function popupSize() {
     return {
@@ -100,6 +116,7 @@ export function initTripMap(openDay) {
       button.type = 'button';
       button.className = 'map-popup-arrow';
       button.setAttribute('aria-label', label);
+      button.setAttribute('aria-keyshortcuts', direction === 'previous' ? 'ArrowLeft' : 'ArrowRight');
       button.textContent = symbol;
       button.addEventListener('click', () => {
         const index = visiblePlaces.indexOf(place);
@@ -147,6 +164,13 @@ export function initTripMap(openDay) {
       }),
     }).bindPopup(popup, popupSize());
     markers.set(place.id, marker);
+    marker.on('popupopen', () => {
+      activePlace = place;
+      marker.getElement()?.focus({ preventScroll: true });
+    });
+    marker.on('popupclose', () => {
+      if (activePlace === place) activePlace = null;
+    });
     marker.on('add', () => marker.getElement().setAttribute('aria-label', `${category.label} : ${place.name}`));
     marker.addTo(layers[place.category]);
     const item = document.createElement('li');
