@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { days, hotels } from './data.js';
+import { statSync } from 'node:fs';
+import { days, hotels, photos } from './data.js';
 import { mapPlaces, mapRoute } from './map-data.js';
 
 test('markers have unique valid IDs, names, descriptions and Japan coordinates', () => {
@@ -30,6 +31,39 @@ test('categories and itinerary day references are valid', () => {
   }
 });
 
+test('all markers have descriptive images using existing public files or HTTPS URLs', () => {
+  const publicRoot = new URL('../public/', import.meta.url);
+  for (const place of mapPlaces) {
+    assert.ok(typeof place.image === 'string' && place.image.trim().length > 0, place.id);
+    assert.ok(typeof place.imageAlt === 'string' && place.imageAlt.trim().length > 0, place.id);
+    if (place.image.startsWith('/')) {
+      assert.ok(!place.image.startsWith('//'), place.id);
+      const imageUrl = new URL(place.image.slice(1), publicRoot);
+      assert.ok(imageUrl.href.startsWith(publicRoot.href), place.id);
+      assert.ok(statSync(imageUrl).isFile(), place.id);
+    } else {
+      assert.equal(new URL(place.image).protocol, 'https:', place.id);
+    }
+  }
+});
+
+test('dedicated destination photos are reused without substituting other cities', () => {
+  const photoIds = ['osaka', 'koya', 'nara', 'kyoto', 'himeji', 'hikone', 'kamakura', 'tokyo'];
+  for (const id of photoIds) {
+    const place = mapPlaces.find((entry) => entry.id === id);
+    assert.equal(place.image, photos[id], id);
+    assert.doesNotMatch(place.imageAlt, /illustration/i, id);
+  }
+});
+
+test('cities without dedicated photos use an explicitly labeled landscape illustration', () => {
+  for (const id of ['uji', 'nagoya', 'yaizu', 'hakone']) {
+    const place = mapPlaces.find((entry) => entry.id === id);
+    assert.equal(place.image, '/landscape.svg', id);
+    assert.equal(place.imageAlt, `Illustration de paysage japonais pour l’étape à ${place.name}, et non une photographie de la ville`, id);
+  }
+});
+
 test('geographic markers match all itinerary stops and their days', () => {
   const expected = {
     osaka: [2], koya: [2, 3], nara: [3], kyoto: [3, 4, 5, 6],
@@ -55,6 +89,8 @@ test('five separate stays reference existing hotels and allocate every hotel nig
     const hotel = hotels[stay.hotelIndex];
     assert.ok(hotel, stay.id);
     assert.equal(stay.name, hotel.name);
+    assert.equal(stay.image, hotel.image);
+    assert.equal(stay.imageAlt, `Vue de l’établissement : ${hotel.name}`);
     assert.deepEqual(stay.days, expectedNights[stay.hotelIndex]);
     assert.equal(stay.days.length, hotel.nights);
     assert.match(stay.description, /Repère approximatif .*adresse à confirmer/);
