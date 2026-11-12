@@ -35,7 +35,8 @@ Les données sont centralisées dans `src/data.js`, le rendu et les interactions
 dans `src/main.js`, les styles responsive et d’impression dans `src/style.css`.
 `dist/` et `node_modules/` ne sont pas versionnés.
 
-La carte Leaflet utilise le fond OpenStreetMap et distingue les visites/étapes,
+La carte Leaflet utilise le fond OpenStreetMap France, dont le style privilégie
+les noms en français lorsqu’ils sont disponibles, et distingue les visites/étapes,
 les excursions du programme et les cinq lieux de couchage. Chaque catégorie et
 le tracé peuvent être masqués séparément. Les repères donnent accès aux journées
 du carnet, même après filtrage du programme. Une liste des lieux permet aussi de

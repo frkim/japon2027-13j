@@ -19,9 +19,9 @@ export function initTripMap(openDay) {
   L.control.zoom({
     position: 'topright', zoomInTitle: 'Zoom avant', zoomOutTitle: 'Zoom arrière',
   }).addTo(map);
-  const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  const tiles = L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
     maxZoom: 19,
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+    attribution: 'Données &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>/ODbL · rendu <a href="https://openstreetmap.fr">OpenStreetMap France</a>',
   }).addTo(map);
   tiles.on('tileerror', () => {
     error.hidden = false;
