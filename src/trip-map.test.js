@@ -110,11 +110,13 @@ function setup() {
   };
 }
 
-test('map tiles use the French OpenStreetMap style with attribution', () => {
+test('map tiles use the standard OpenStreetMap endpoint with matching attribution', () => {
   const { tileLayers } = setup();
-  assert.equal(tileLayers[0].url, 'https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png');
-  assert.match(tileLayers[0].options.attribution, /OpenStreetMap France/);
-  assert.match(tileLayers[0].options.attribution, /openstreetmap\.org\/copyright/);
+  assert.equal(tileLayers.length, 1);
+  assert.equal(tileLayers[0].url, 'https://tile.openstreetmap.org/{z}/{x}/{y}.png');
+  assert.equal(tileLayers[0].options.maxZoom, 19);
+  assert.match(tileLayers[0].options.attribution, /&copy; <a href="https:\/\/www\.openstreetmap\.org\/copyright">OpenStreetMap<\/a> contributors/);
+  assert.doesNotMatch(tileLayers[0].options.attribution, /OpenStreetMap France|openstreetmap\.fr/);
 });
 
 test('popup arrow keys use button navigation, wrap and keep focus on the arrow', () => {
