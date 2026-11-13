@@ -67,6 +67,10 @@ function setup() {
           this.popup = { content, options };
           return this;
         },
+        bindTooltip(content, options) {
+          this.tooltip = { content, options };
+          return this;
+        },
         addTo(layer) {
           layer.markers.push(this);
           events.add?.();
@@ -117,6 +121,22 @@ test('map tiles use the standard OpenStreetMap endpoint with matching attributio
   assert.equal(tileLayers[0].options.maxZoom, 19);
   assert.match(tileLayers[0].options.attribution, /&copy; <a href="https:\/\/www\.openstreetmap\.org\/copyright">OpenStreetMap<\/a> contributors/);
   assert.doesNotMatch(tileLayers[0].options.attribution, /OpenStreetMap France|openstreetmap\.fr/);
+});
+
+test('itinerary cities have permanent French labels without duplicating hotel labels', () => {
+  const { markers } = setup();
+  mapPlaces.forEach((place, index) => {
+    const { tooltip } = markers[index];
+    if (place.category === 'stay') {
+      assert.equal(tooltip, undefined);
+      return;
+    }
+    assert.equal(tooltip.content.textContent, place.name);
+    assert.equal(tooltip.options.permanent, true);
+    assert.equal(tooltip.options.opacity, 1);
+    assert.equal(tooltip.options.className, 'map-city-label');
+    assert.equal(tooltip.options.direction, place.category === 'excursion' ? 'bottom' : 'top');
+  });
 });
 
 test('popup arrow keys use button navigation, wrap and keep focus on the arrow', () => {

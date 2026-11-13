@@ -163,6 +163,17 @@ export function initTripMap(openDay) {
         iconSize: [32, 32], iconAnchor: [16, 16], popupAnchor: [0, -18],
       }),
     }).bindPopup(popup, popupSize());
+    if (place.category !== 'stay') {
+      const label = document.createElement('span');
+      label.textContent = place.name;
+      marker.bindTooltip(label, {
+        permanent: true,
+        direction: place.category === 'excursion' ? 'bottom' : 'top',
+        offset: [0, place.category === 'excursion' ? 16 : -16],
+        className: 'map-city-label',
+        opacity: 1,
+      });
+    }
     markers.set(place.id, marker);
     marker.on('popupopen', () => {
       activePlace = place;

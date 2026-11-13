@@ -36,7 +36,10 @@ dans `src/main.js`, les styles responsive et d’impression dans `src/style.css`
 `dist/` et `node_modules/` ne sont pas versionnés.
 
 La carte Leaflet utilise le fond standard OpenStreetMap (`tile.openstreetmap.org`),
-avec les noms locaux, et distingue les visites/étapes, les excursions du programme
+et superpose les noms français des étapes sur leurs repères, sans clic nécessaire.
+Les autres noms du fond restent en langue locale. Les étiquettes suivent les
+catégories affichées ; zoomez pour distinguer les étapes proches.
+La carte distingue les visites/étapes, les excursions du programme
 et les cinq lieux de couchage. L’attribution reste visible et l’utilisation doit
 respecter la [politique des tuiles OpenStreetMap](https://operations.osmfoundation.org/policies/tiles/).
 Chaque catégorie et le tracé peuvent être masqués séparément.
