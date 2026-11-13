@@ -37,6 +37,7 @@ function setup() {
   };
   let activeMarker = null;
   const markers = [];
+  const tileLayers = [];
   const map = {
     setView() {},
     fitBounds() {},
@@ -49,7 +50,10 @@ function setup() {
   const L = {
     map: () => map,
     control: { zoom: addable },
-    tileLayer: addable,
+    tileLayer: (url, options) => {
+      tileLayers.push({ url, options });
+      return addable();
+    },
     layerGroup: () => ({ ...addable(), markers: [] }),
     latLngBounds: (coordinates) => coordinates,
     polyline: addable,
@@ -100,11 +104,18 @@ function setup() {
     return event;
   }
   return {
-    markers, inputs, elements, key,
+    markers, tileLayers, inputs, elements, key,
     get activeMarker() { return activeMarker; },
     get focused() { return focused; },
   };
 }
+
+test('map tiles use the French OpenStreetMap style with attribution', () => {
+  const { tileLayers } = setup();
+  assert.equal(tileLayers[0].url, 'https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png');
+  assert.match(tileLayers[0].options.attribution, /OpenStreetMap France/);
+  assert.match(tileLayers[0].options.attribution, /openstreetmap\.org\/copyright/);
+});
 
 test('popup arrow keys use button navigation, wrap and keep focus on the arrow', () => {
   const ui = setup();
