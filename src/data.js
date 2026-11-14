@@ -20,13 +20,44 @@ export const hotels = [
 
 export const days = [
   { day: 1, title: 'Le grand départ', route: 'Paris ✈ Osaka', tag: 'Transport', image: photos.osaka, alt: 'Rue animée de Shinsekai à Osaka, avec la tour Tsūtenkaku', distance: '', stay: 'Nuit en vol', text: 'Départ de Paris CDG avec Finnair. Escale à Helsinki avant de poursuivre vers Osaka.', items: ['AY1572 · Paris CDG 10h45 → Helsinki 14h40', 'AY0067 · Helsinki 17h45 → Osaka KIX 12h35 le 18 mai'], meals: 'Repas : selon les prestations aériennes.' },
-  { day: 2, title: 'Une nuit hors du temps', route: 'Osaka › Mont-Koya', tag: 'Culture', image: photos.koya, alt: 'Pagode et temple du complexe Danjō Garan au Mont Koya', distance: '70 km / 2h', stay: hotels[0].name, text: 'Arrivée à Osaka à 12h35, puis route vers le Mont Koya. Le monastère bouddhiste est l’un des temps forts du circuit.', items: ['Installation au monastère', 'Petit sac conseillé : la valise reste dans la soute de l’autocar'], meals: 'Repas : non précisés dans les informations fournies.' },
-  { day: 3, title: 'Sur les chemins de l’ancienne capitale', route: 'Mont-Koya › Nara › Kyoto', tag: 'Culture', image: photos.nara, alt: 'Temple Tōdai-ji se reflétant dans un étang à Nara', distance: '140 km / 4h40', stay: hotels[1].name, text: 'Départ du Mont-Koya, étape à Nara et arrivée à Kyoto pour trois nuits.', items: ['Étape à Nara', 'Installation à Kyoto'], meals: 'Déjeuner et dîner libres.' },
+  { day: 2, title: 'Une nuit hors du temps', route: 'Osaka › Mont-Koya', tag: 'Culture', image: photos.koya, alt: 'Pagode et temple du complexe Danjō Garan au Mont Koya', distance: '70 km / 2h', stay: hotels[0].name, text: 'Arrivée à Osaka à 12h35, puis route vers le Mont Koya. Le monastère bouddhiste est l’un des temps forts du circuit.', items: ['Installation au monastère', 'Petit sac conseillé : la valise reste dans la soute de l’autocar'], meals: 'Repas : non précisés dans les informations fournies.',
+    stages: [
+      { title: 'Arrivée à Osaka', route: 'Osaka', text: 'Arrivée à Osaka à 12h35.' },
+      { title: 'Une nuit au Mont-Koya', route: 'Osaka › Mont-Koya', text: 'Route vers le Mont Koya et installation au monastère bouddhiste, l’un des temps forts du circuit. Petit sac conseillé : la valise reste dans la soute de l’autocar.' },
+    ],
+  },
+  { day: 3, title: 'Sur les chemins de l’ancienne capitale', route: 'Mont-Koya › Nara › Kyoto', tag: 'Culture', image: photos.nara, alt: 'Temple Tōdai-ji se reflétant dans un étang à Nara', distance: '140 km / 4h40', stay: hotels[1].name, text: 'Départ du Mont-Koya, étape à Nara et arrivée à Kyoto pour trois nuits.', items: ['Étape à Nara', 'Installation à Kyoto'], meals: 'Déjeuner et dîner libres.',
+    stages: [
+      { title: 'Étape à Nara', route: 'Mont-Koya › Nara', text: 'Départ du Mont-Koya et étape à Nara.' },
+      { title: 'Installation à Kyoto', route: 'Nara › Kyoto', text: 'Arrivée à Kyoto et installation pour trois nuits.' },
+    ],
+  },
   { day: 4, title: 'L’âme de Kyoto', route: 'Kyoto', tag: 'Culture', image: photos.kyoto, alt: 'Rue pavée bordée de maisons traditionnelles et de parapluies japonais à Kyoto', distance: '', stay: hotels[1].name, text: 'Une journée à Kyoto, au cœur du Japon traditionnel, de ses temples et de ses sanctuaires.', items: ['Journée à Kyoto', 'Les sites précis et horaires ne sont pas détaillés dans le programme fourni'], meals: 'Déjeuner et dîner libres.' },
-  { day: 5, title: 'Thé, traditions & châteaux', route: 'Kyoto › Uji › Himeji › Kyoto', tag: 'Culture', image: photos.himeji, alt: 'Château blanc de Himeji sous un ciel bleu', distance: '290 km / 4h20', stay: hotels[1].name, text: 'Une boucle au départ de Kyoto, avec des étapes à Uji et Himeji, avant de retrouver votre hôtel.', items: ['Étapes à Uji et Himeji', 'Retour à Kyoto pour la nuit'], meals: 'Déjeuner et dîner libres.' },
-  { day: 6, title: 'D’une ville à l’autre', route: 'Kyoto › Hikone › Nagoya', tag: 'Culture', image: photos.hikone, alt: 'Château de Hikone et ses toits traditionnels', distance: '165 km / 2h30', stay: hotels[2].name, text: 'Le circuit se poursuit vers Hikone, puis Nagoya. Les châteaux historiques japonais font partie des points forts du voyage.', items: ['Étape à Hikone', 'Nuit à Nagoya'], meals: 'Dîner libre. Autres repas non précisés.' },
-  { day: 7, title: 'À l’horizon, le Mont Fuji', route: 'Nagoya › Yaizu › Hakone', tag: 'Nature', image: photos.fuji, alt: 'Vue sur le Mont Fuji', distance: '300 km / 4h00', stay: hotels[3].name, text: 'Cap sur Yaizu puis Hakone, pour les paysages du Mont Fuji et une nuit en ryokan traditionnel. La visibilité du Fuji dépend de la météo.', items: ['Étape à Yaizu', 'Préparer un petit sac pour la nuit en ryokan'], meals: 'Déjeuner libre. Autres repas non précisés.' },
-  { day: 8, title: 'De Kamakura à la ville électrique', route: 'Hakone › Kamakura › Tokyo', tag: 'Culture', image: photos.kamakura, alt: 'Grand Bouddha de Kamakura à ciel ouvert', distance: '111 km / 3h45', stay: hotels[4].name, text: 'Une étape à Kamakura avant de rejoindre Tokyo. Installation pour quatre nuits dans la capitale.', items: ['Étape à Kamakura', 'Installation à Ikebukuro, Tokyo'], meals: 'Déjeuner et dîner libres.' },
+  { day: 5, title: 'Thé, traditions & châteaux', route: 'Kyoto › Uji › Himeji › Kyoto', tag: 'Culture', image: photos.himeji, alt: 'Château blanc de Himeji sous un ciel bleu', distance: '290 km / 4h20', stay: hotels[1].name, text: 'Une boucle au départ de Kyoto, avec des étapes à Uji et Himeji, avant de retrouver votre hôtel.', items: ['Étapes à Uji et Himeji', 'Retour à Kyoto pour la nuit'], meals: 'Déjeuner et dîner libres.',
+    stages: [
+      { title: 'Étape à Uji', route: 'Kyoto › Uji', text: 'La boucle au départ de Kyoto commence par une étape à Uji.' },
+      { title: 'Étape à Himeji', route: 'Uji › Himeji', text: 'Le parcours se poursuit avec une étape à Himeji.' },
+      { title: 'Retour à Kyoto', route: 'Himeji › Kyoto', text: 'Retour à Kyoto pour retrouver votre hôtel et y passer la nuit.' },
+    ],
+  },
+  { day: 6, title: 'D’une ville à l’autre', route: 'Kyoto › Hikone › Nagoya', tag: 'Culture', image: photos.hikone, alt: 'Château de Hikone et ses toits traditionnels', distance: '165 km / 2h30', stay: hotels[2].name, text: 'Le circuit se poursuit vers Hikone, puis Nagoya. Les châteaux historiques japonais font partie des points forts du voyage.', items: ['Étape à Hikone', 'Nuit à Nagoya'], meals: 'Dîner libre. Autres repas non précisés.',
+    stages: [
+      { title: 'Étape à Hikone', route: 'Kyoto › Hikone', text: 'Étape à Hikone. Les châteaux historiques japonais font partie des points forts du voyage.' },
+      { title: 'Nuit à Nagoya', route: 'Hikone › Nagoya', text: 'Le circuit se poursuit vers Nagoya pour la nuit.' },
+    ],
+  },
+  { day: 7, title: 'À l’horizon, le Mont Fuji', route: 'Nagoya › Yaizu › Hakone', tag: 'Nature', image: photos.fuji, alt: 'Vue sur le Mont Fuji', distance: '300 km / 4h00', stay: hotels[3].name, text: 'Cap sur Yaizu puis Hakone, pour les paysages du Mont Fuji et une nuit en ryokan traditionnel. La visibilité du Fuji dépend de la météo.', items: ['Étape à Yaizu', 'Préparer un petit sac pour la nuit en ryokan'], meals: 'Déjeuner libre. Autres repas non précisés.',
+    stages: [
+      { title: 'Étape à Yaizu', route: 'Nagoya › Yaizu', text: 'Départ de Nagoya et étape à Yaizu.' },
+      { title: 'Hakone et le Mont Fuji', route: 'Yaizu › Hakone', text: 'Cap sur Hakone pour les paysages du Mont Fuji et une nuit en ryokan traditionnel. La visibilité du Fuji dépend de la météo. Préparer un petit sac pour la nuit en ryokan.' },
+    ],
+  },
+  { day: 8, title: 'De Kamakura à la ville électrique', route: 'Hakone › Kamakura › Tokyo', tag: 'Culture', image: photos.kamakura, alt: 'Grand Bouddha de Kamakura à ciel ouvert', distance: '111 km / 3h45', stay: hotels[4].name, text: 'Une étape à Kamakura avant de rejoindre Tokyo. Installation pour quatre nuits dans la capitale.', items: ['Étape à Kamakura', 'Installation à Ikebukuro, Tokyo'], meals: 'Déjeuner et dîner libres.',
+    stages: [
+      { title: 'Étape à Kamakura', route: 'Hakone › Kamakura', text: 'Départ de Hakone pour une étape à Kamakura.' },
+      { title: 'Installation à Tokyo', route: 'Kamakura › Tokyo', text: 'Arrivée à Tokyo et installation à Ikebukuro pour quatre nuits dans la capitale.' },
+    ],
+  },
   ...[9, 10, 11].map((day) => ({
     day, title: ['Tokyo, mille contrastes', 'La capitale se dévoile', 'Encore un peu de Tokyo'][day - 9],
     route: 'Tokyo', tag: 'Ville', image: photos.tokyo, alt: 'Panorama nocturne de Tokyo et de la tour de Tokyo', distance: '',
