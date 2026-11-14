@@ -1,5 +1,6 @@
 import './style.css';
 import { initTripMap } from './trip-map.js';
+import { linkPlaces, initDayDialog, initImageFallbacks } from './program.js';
 import { photos, hotels, days, flights, highlights, included, excluded, important, formalities, practical, checklist } from './data.js';
 
 const paths = {
@@ -20,11 +21,13 @@ const paths = {
   print: '<path d="M6 8V3h12v5M6 17H3V8h18v9h-3M6 14h12v7H6Z"/>',
   menu: '<path d="M4 6h16M4 12h16M4 18h16"/>',
   external: '<path d="M14 3h7v7m0-7L10 14m0-10H3v17h17v-7"/>',
+  info: '<circle cx="12" cy="12" r="9"/><path d="M12 11v6m0-10h.01"/>',
 };
 const icon = (name, className = '') => `<svg class="icon ${className}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${paths[name] || paths.pin}</svg>`;
 const list = (items) => `<ul class="check-list">${items.map((item) => `<li>${icon('check')}<span>${item}</span></li>`).join('')}</ul>`;
 const definitions = (items) => `<dl class="info-list">${items.map(([title, text]) => `<div><dt>${title}</dt><dd>${text}</dd></div>`).join('')}</dl>`;
 const dateLabel = (day) => new Intl.DateTimeFormat('fr-FR', { day: 'numeric', month: 'long', timeZone: 'UTC' }).format(new Date(Date.UTC(2027, 4, 16 + day)));
+const timelineDate = (day) => new Intl.DateTimeFormat('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }).format(new Date(Date.UTC(2027, 4, 16 + day)));
 const mapLink = (query) => `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query + ', Japon')}`;
 const externalLink = (href, label) => `<a href="${href}" target="_blank" rel="noopener noreferrer">${label} ${icon('external')}</a>`;
 
@@ -89,12 +92,15 @@ document.querySelector('#app').innerHTML = `
               <label><input type="checkbox" data-map-layer="stay" checked><span class="map-key map-key-stay">N</span> Lieux de couchage</label>
               <label><input type="checkbox" data-map-layer="route" checked><span class="map-route-key" aria-hidden="true"></span> Parcours</label>
             </fieldset>
-            <button type="button" class="filter" id="map-reset">Recentrer le circuit</button>
+            <div class="map-actions">
+              <button type="button" class="filter" id="map-reset">Recentrer le circuit</button>
+              <button type="button" class="map-help-toggle" id="map-help-toggle" popovertarget="map-help" aria-label="Conseils d’utilisation de la carte">${icon('info')}</button>
+              <p class="map-help-content fine-print" id="map-help" popover>Noms des étapes en français sur les repères ; les autres noms du fond OpenStreetMap restent en langue locale · Zoomez pour distinguer les étapes proches. Déplacez la carte et utilisez + / − pour zoomer, ou deux doigts sur mobile. Au clavier : flèches pour déplacer la carte, + / − pour zoomer et Entrée sur un repère pour le consulter. Le tracé relie les étapes à titre indicatif : ce n’est pas un itinéraire routier. Les visites sont situées au centre des villes ; les repères des hébergements sont approximatifs, adresses à confirmer. Les excursions correspondent aux étapes du programme, sans ajout de visites non confirmées.</p>
+            </div>
           </div>
           <p class="fine-print" id="map-status" role="status" aria-live="polite"></p>
           <div id="trip-map" class="trip-map" role="region" aria-label="Carte interactive du circuit au Japon" aria-describedby="map-help" tabindex="0"></div>
           <p id="map-error" class="notice" role="status" hidden>Le fond de carte n’a pas pu être chargé. Vérifiez votre connexion. Les repères et la liste des lieux restent disponibles.</p>
-          <p class="fine-print" id="map-help">Noms des étapes en français sur les repères ; les autres noms du fond OpenStreetMap restent en langue locale · Zoomez pour distinguer les étapes proches. Déplacez la carte et utilisez + / − pour zoomer, ou deux doigts sur mobile. Au clavier : flèches pour déplacer la carte, + / − pour zoomer et Entrée sur un repère pour le consulter. Le tracé relie les étapes à titre indicatif : ce n’est pas un itinéraire routier. Les visites sont situées au centre des villes ; les repères des hébergements sont approximatifs, adresses à confirmer. Les excursions correspondent aux étapes du programme, sans ajout de visites non confirmées.</p>
           <details class="map-place-list"><summary>Consulter la liste des lieux</summary><ul id="map-places"></ul></details>
         </div>
       </section>
@@ -106,16 +112,28 @@ document.querySelector('#app').innerHTML = `
           <label class="search-field">${icon('search')}<span class="sr-only">Rechercher une étape ou un hébergement</span><input id="search" type="search" placeholder="Une ville, une étape…" autocomplete="off"></label>
         </div>
         <p class="result-count" id="result-count" role="status" aria-live="polite">13 journées à découvrir</p>
-        <div class="day-grid">${days.map((day) => `
-          <details class="day-card" id="jour-${day.day}" data-category="${day.tag}">
-            <summary><div class="day-image-wrap"><img src="${day.image}" alt="${day.alt}" loading="lazy" decoding="async" width="900" height="600"><span class="day-number">J${String(day.day).padStart(2, '0')}</span><span class="image-tag">${day.tag}</span></div>
-              <div class="day-summary" data-print-day="Jour ${day.day}"><p class="day-date">${dateLabel(day.day)} 2027 <span>${day.distance || 'Durée non précisée'}</span></p><h3>${day.title}</h3><p class="day-route">${day.route}</p><div class="day-bottom"><span>${icon('moon')}${day.stay}</span><span class="expand-icon" aria-hidden="true">+</span></div></div>
-            </summary>
-            <div class="day-detail"><p>${day.text}</p><ul>${day.items.map((item) => `<li>${item}</li>`).join('')}</ul><p class="meal-note">${icon('bowl')}${day.meals}</p>${externalLink(mapLink(day.route.replaceAll('›', ' ')), 'Repérer l’étape')}</div>
+        <div class="day-timeline">${days.map((day) => `
+          <details class="day-card" id="jour-${day.day}" data-category="${day.tag}" open>
+            <summary class="day-date-pill"><span class="day-chevron" aria-hidden="true">⌄</span>${icon('calendar')}<span>J${String(day.day).padStart(2, '0')} · ${timelineDate(day.day)}</span></summary>
+            <article class="day-preview">
+              <div class="day-preview-heading"><span class="day-symbol">${icon(day.tag === 'Transport' ? 'plane' : day.tag === 'Nature' ? 'mountain' : day.tag === 'Ville' ? 'city' : 'temple')}</span><div><h3><button type="button" data-open-day="${day.day}">${day.title}</button></h3><p class="day-duration">${icon('calendar')}${day.distance || 'Durée non précisée'}</p></div></div>
+              <p class="day-route">${linkPlaces(day.route)}</p>
+              <p>${linkPlaces(day.text)}</p>
+              <div class="day-preview-actions"><span class="small-tag">${day.tag}</span><button type="button" class="text-link" data-open-day="${day.day}" aria-label="Voir les détails du jour ${day.day}">Détails ${icon('arrow')}</button></div>
+            </article>
+            <div class="day-detail" hidden><div class="day-image-wrap"><img src="${day.image}" alt="${day.alt}" loading="lazy" decoding="async" width="900" height="600"></div><p class="day-route">${linkPlaces(day.route)}</p><p>${linkPlaces(day.text)}</p><ul>${day.items.map((item) => `<li>${linkPlaces(item)}</li>`).join('')}</ul><p class="day-stay">${icon('moon')}${linkPlaces(day.stay)}</p><p class="meal-note">${icon('bowl')}${day.meals}</p></div>
           </details>`).join('')}</div>
         <div id="no-results" class="empty-state" hidden>${icon('search')}<h3>Aucune étape trouvée</h3><p>Essayez une autre ville ou affichez tout le voyage.</p><button class="button button-dark" id="reset-search">Réinitialiser les filtres</button></div>
         <p class="fine-print">Distances et durées indicatives, reprises du programme. Le détail des visites, les horaires et les repas non mentionnés restent à confirmer avec l’organisateur. Les suggestions ne sont pas incluses.</p>
       </section>
+      <dialog class="day-dialog" id="day-dialog" aria-labelledby="day-dialog-title" aria-describedby="day-dialog-date">
+        <div class="day-dialog-header">
+          <div class="day-dialog-controls"><span id="day-dialog-position"></span><button type="button" data-close-day aria-label="Fermer la fiche" autofocus>×</button></div>
+          <div class="day-dialog-navigation"><button type="button" data-previous-day aria-label="Jour précédent" aria-keyshortcuts="ArrowLeft">←</button><h3 id="day-dialog-title"></h3><button type="button" data-next-day aria-label="Jour suivant" aria-keyshortcuts="ArrowRight">→</button></div>
+          <p id="day-dialog-date"></p>
+        </div>
+        <div class="day-dialog-body"></div>
+      </dialog>
 
       <section id="hebergements" class="section-space" aria-labelledby="hotel-title">
         <div class="section-heading"><div><p class="eyebrow">POSER SES VALISES</p><h2 id="hotel-title">Des nuits qui font <em>le voyage.</em></h2></div><span class="section-note">${icon('moon')} 5 hébergements · 10 nuits</span></div>
@@ -153,16 +171,10 @@ document.querySelector('#app').innerHTML = `
   <footer class="site-footer"><div class="container footer-inner"><a class="brand" href="#accueil"><span class="brand-seal" lang="ja">日</span><span>Japon <b>2027</b><small>MERVEILLES DU JAPON</small></span></a><p>17 — 29 mai 2027 · 13 jours / 10 nuits<br>Un carnet pour ne rien oublier.</p><div><button class="text-link" data-print>${icon('print')} Imprimer mon carnet</button><small>Photos d’ambiance : <a href="https://unsplash.com/license" target="_blank" rel="noopener noreferrer">Unsplash</a> · photos des hébergements fournies pour le carnet · illustration de secours originale</small></div></div></footer>
 `;
 
-document.querySelectorAll('img').forEach((image) => {
-  const fallback = () => {
-    image.src = '/landscape.svg';
-    image.alt = 'Illustration du Mont Fuji et d’un paysage japonais (image de secours)';
-  };
-  image.addEventListener('error', fallback, { once: true });
-  if (image.complete && !image.naturalWidth) fallback();
-});
+initImageFallbacks();
 
 const dayCards = [...document.querySelectorAll('.day-card')];
+const showDay = initDayDialog(dayCards, days, dateLabel);
 let filter = 'Tout';
 const search = document.querySelector('#search');
 const normalize = (value) => value.normalize('NFD').replace(/\p{Diacritic}/gu, '').toLowerCase();
@@ -201,6 +213,7 @@ function openDay(day) {
   card.open = true;
   card.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth', block: 'start' });
   card.querySelector('summary').focus({ preventScroll: true });
+  showDay(day);
 }
 document.querySelectorAll('[data-day]').forEach((button) => button.addEventListener('click', () => openDay(button.dataset.day)));
 initTripMap(openDay);
