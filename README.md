@@ -9,6 +9,12 @@ Les textes principaux sont affichés en 18 px et les informations secondaires en
 16 px avec les réglages par défaut du navigateur, y compris sur mobile. Les
 tailles en `rem` respectent la taille de police choisie dans le navigateur.
 
+Le programme se lit sur une frise verticale avec des dates repliables. Les
+boutons des étapes ouvrent une fiche illustrée ; les flèches précédent/suivant
+(ou ← / → au clavier) parcourent les journées affichées après filtrage. Échap
+ferme la fiche. Les noms de villes, lieux et hébergements dans les descriptions
+et les parcours renvoient vers Google Maps.
+
 ## Développement
 
 Node.js 22.12+ et npm sont nécessaires.
@@ -33,12 +39,15 @@ la syntaxe JavaScript et le build de production à chaque pull request.
 
 Les données sont centralisées dans `src/data.js`, le rendu et les interactions
 dans `src/main.js`, les styles responsive et d’impression dans `src/style.css`.
+Les liens vers les lieux et les fiches du programme sont dans `src/program.js`.
 `dist/` et `node_modules/` ne sont pas versionnés.
 
 La carte Leaflet utilise le fond standard OpenStreetMap (`tile.openstreetmap.org`),
 et superpose les noms français des étapes sur leurs repères, sans clic nécessaire.
 Les autres noms du fond restent en langue locale. Les étiquettes suivent les
 catégories affichées ; zoomez pour distinguer les étapes proches.
+Les conseils et limites de la carte sont consultables dans l’infobulle ⓘ à côté
+de « Recentrer le circuit », au clic ou au clavier, et se ferment avec Échap.
 La carte distingue les visites/étapes, les excursions du programme
 et les cinq lieux de couchage. L’attribution reste visible et l’utilisation doit
 respecter la [politique des tuiles OpenStreetMap](https://operations.osmfoundation.org/policies/tiles/).
