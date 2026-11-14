@@ -61,6 +61,67 @@ test('the timeline has chronological collapsible date pills and detail controls 
   assert.match(app.innerHTML, /<dialog[^>]*aria-labelledby="day-dialog-title"/);
 });
 
+test('multi-stop days show separate chronological stage cards under a single date', () => {
+  const stagesByDay = new Map([
+    [2, ['Arrivée à Osaka', 'Une nuit au Mont-Koya']],
+    [3, ['Étape à Nara', 'Installation à Kyoto']],
+    [5, ['Étape à Uji', 'Étape à Himeji', 'Retour à Kyoto']],
+    [6, ['Étape à Hikone', 'Nuit à Nagoya']],
+    [7, ['Étape à Yaizu', 'Hakone et le Mont Fuji']],
+    [8, ['Étape à Kamakura', 'Installation à Tokyo']],
+  ]);
+  for (const day of data.days) {
+    const html = app.innerHTML.match(new RegExp(`<details class="day-card" id="jour-${day.day}"[\\s\\S]*?</details>`))[0];
+    const previews = [...html.matchAll(/<article class="day-preview">([\s\S]*?)<\/article>/g)];
+    const titles = stagesByDay.get(day.day) || [day.title];
+    assert.equal(previews.length, titles.length, `day ${day.day}`);
+    assert.equal((html.match(/class="day-date-pill"/g) || []).length, 1);
+    assert.equal((html.match(/class="day-detail"/g) || []).length, 1);
+    assert.equal((html.match(/class="day-duration"/g) || []).length, 1);
+    previews.forEach(([preview], index) => {
+      assert.ok(preview.includes(`data-open-day="${day.day}">${titles[index]}</button>`));
+      assert.ok(preview.includes(`aria-label="Voir les détails du jour ${day.day}"`));
+      const stage = day.stages?.[index] || day;
+      assert.ok(preview.includes(`<p class="day-route">${linkPlaces(stage.route)}</p>`));
+      assert.ok(preview.includes(`<p>${linkPlaces(stage.text)}</p>`));
+    });
+    if (day.stages) {
+      assert.ok(previews[0][0].includes(`Trajet de la journée : ${day.distance}`));
+      assert.ok(!previews.some(([preview]) => preview.includes(`<p>${linkPlaces(day.text)}</p>`)));
+    }
+  }
+});
+
+test('searching stage text keeps its whole day and category filtering still applies', () => {
+  const cards = data.days.map(() => ({ hidden: false }));
+  const search = { value: 'ÉTAPE À YAIZU' };
+  const count = {};
+  const empty = {};
+  const filterSource = readFileSync(new URL('./main.js', import.meta.url), 'utf8')
+    .split("let filter = 'Tout';")[1]
+    .split("document.querySelectorAll('[data-filter]').forEach((button) => button.addEventListener")[0]
+    .replace("const search = document.querySelector('#search');", '');
+  const context = {
+    filter: 'Tout', search, dayCards: cards, days: data.days, dateLabel: () => '',
+    document: {
+      querySelector: (selector) => selector === '#result-count' ? count : empty,
+      querySelectorAll: () => [],
+    },
+  };
+  runInNewContext(`${filterSource}\nfilterDays();`, context);
+  assert.deepEqual(cards.map((card, index) => !card.hidden ? index + 1 : null).filter(Boolean), [7]);
+  assert.equal(count.textContent, '1 journée à découvrir');
+  context.filter = 'Culture';
+  runInNewContext('filterDays();', context);
+  assert.ok(cards.every((card) => card.hidden));
+  assert.equal(empty.hidden, false);
+  context.filter = 'Nature';
+  search.value = 'Préparer un petit sac';
+  runInNewContext('filterDays();', context);
+  assert.equal(cards[6].hidden, false);
+  assert.equal(empty.hidden, true);
+});
+
 test('map help appears once in a native popover beside reset and remains the map accessible description', () => {
   assert.match(app.innerHTML, /id="map-reset">Recentrer le circuit<\/button>\s*<button[^>]*popovertarget="map-help" aria-label=/);
   assert.equal((app.innerHTML.match(/id="map-help"/g) || []).length, 1);
@@ -94,12 +155,15 @@ function setupDialog() {
   dialog.close = () => { dialog.open = false; dialog.listeners.close(); };
   const opener = new Element();
   const cards = data.days.map((day) => {
-    const button = new Element();
-    button.dataset.openDay = String(day.day);
+    const buttons = (day.stages || [day]).flatMap(() => Array.from({ length: 2 }, () => {
+      const button = new Element();
+      button.dataset.openDay = String(day.day);
+      return button;
+    }));
     return {
-      id: `jour-${day.day}`, hidden: false, button,
+      id: `jour-${day.day}`, hidden: false, button: buttons[0], buttons,
       querySelector: () => ({ innerHTML: `<p>Jour ${day.day}</p>` }),
-      querySelectorAll: () => [button],
+      querySelectorAll: () => buttons,
     };
   });
   const dialogSource = readFileSync(new URL('./program.js', import.meta.url), 'utf8')
@@ -129,6 +193,19 @@ test('detail controls open the selected day, show its content and restore focus 
   ui.controls['[data-close-day]'].click();
   assert.equal(ui.dialog.open, false);
   assert.equal(ui.focused, ui.opener);
+});
+
+test('every stage control opens the parent day without adding dialog navigation positions', () => {
+  const ui = setupDialog();
+  for (const button of ui.cards[6].buttons) {
+    button.click();
+    assert.equal(ui.controls['#day-dialog-title'].textContent, data.days[6].title);
+    assert.equal(ui.controls['.day-dialog-body'].innerHTML, '<p>Jour 7</p>');
+    assert.equal(ui.controls['#day-dialog-position'].textContent, '7 / 13');
+  }
+  ui.controls['[data-next-day]'].click();
+  assert.equal(ui.controls['#day-dialog-title'].textContent, data.days[7].title);
+  assert.equal(ui.controls['#day-dialog-position'].textContent, '8 / 13');
 });
 
 test('dialog buttons and arrow keys skip filtered days and stop at the first and last visible day', () => {

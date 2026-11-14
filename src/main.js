@@ -115,12 +115,12 @@ document.querySelector('#app').innerHTML = `
         <div class="day-timeline">${days.map((day) => `
           <details class="day-card" id="jour-${day.day}" data-category="${day.tag}" open>
             <summary class="day-date-pill"><span class="day-chevron" aria-hidden="true">⌄</span>${icon('calendar')}<span>J${String(day.day).padStart(2, '0')} · ${timelineDate(day.day)}</span></summary>
-            <article class="day-preview">
-              <div class="day-preview-heading"><span class="day-symbol">${icon(day.tag === 'Transport' ? 'plane' : day.tag === 'Nature' ? 'mountain' : day.tag === 'Ville' ? 'city' : 'temple')}</span><div><h3><button type="button" data-open-day="${day.day}">${day.title}</button></h3><p class="day-duration">${icon('calendar')}${day.distance || 'Durée non précisée'}</p></div></div>
-              <p class="day-route">${linkPlaces(day.route)}</p>
-              <p>${linkPlaces(day.text)}</p>
+            ${(day.stages || [day]).map((stage, index) => `<article class="day-preview">
+              <div class="day-preview-heading"><span class="day-symbol">${icon(day.tag === 'Transport' ? 'plane' : day.tag === 'Nature' ? 'mountain' : day.tag === 'Ville' ? 'city' : 'temple')}</span><div><h3><button type="button" data-open-day="${day.day}">${stage.title}</button></h3>${index === 0 ? `<p class="day-duration">${icon('calendar')}${day.stages ? 'Trajet de la journée : ' : ''}${day.distance || 'Durée non précisée'}</p>` : ''}</div></div>
+              <p class="day-route">${linkPlaces(stage.route)}</p>
+              <p>${linkPlaces(stage.text)}</p>
               <div class="day-preview-actions"><span class="small-tag">${day.tag}</span><button type="button" class="text-link" data-open-day="${day.day}" aria-label="Voir les détails du jour ${day.day}">Détails ${icon('arrow')}</button></div>
-            </article>
+            </article>`).join('')}
             <div class="day-detail" hidden><div class="day-image-wrap"><img src="${day.image}" alt="${day.alt}" loading="lazy" decoding="async" width="900" height="600"></div><p class="day-route">${linkPlaces(day.route)}</p><p>${linkPlaces(day.text)}</p><ul>${day.items.map((item) => `<li>${linkPlaces(item)}</li>`).join('')}</ul><p class="day-stay">${icon('moon')}${linkPlaces(day.stay)}</p><p class="meal-note">${icon('bowl')}${day.meals}</p></div>
           </details>`).join('')}</div>
         <div id="no-results" class="empty-state" hidden>${icon('search')}<h3>Aucune étape trouvée</h3><p>Essayez une autre ville ou affichez tout le voyage.</p><button class="button button-dark" id="reset-search">Réinitialiser les filtres</button></div>
@@ -183,7 +183,7 @@ function filterDays() {
   let count = 0;
   dayCards.forEach((card, index) => {
     const day = days[index];
-    const haystack = normalize([day.title, day.route, day.stay, day.text, day.tag, dateLabel(day.day), `jour ${day.day}`].join(' '));
+    const haystack = normalize([day.title, day.route, day.stay, day.text, day.tag, dateLabel(day.day), `jour ${day.day}`, ...(day.stages || []).flatMap((stage) => [stage.title, stage.route, stage.text])].join(' '));
     const visible = (filter === 'Tout' || day.tag === filter) && haystack.includes(query);
     card.hidden = !visible;
     if (visible) count++;

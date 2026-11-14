@@ -9,7 +9,9 @@ Les textes principaux sont affichés en 18 px et les informations secondaires en
 16 px avec les réglages par défaut du navigateur, y compris sur mobile. Les
 tailles en `rem` respectent la taille de police choisie dans le navigateur.
 
-Le programme se lit sur une frise verticale avec des dates repliables. Les
+Le programme se lit sur une frise verticale avec des dates repliables. Une même
+journée peut regrouper plusieurs vignettes, une par étape, dans l’ordre du parcours.
+Les distances et durées indiquées concernent l’ensemble de la journée. Les
 boutons des étapes ouvrent une fiche illustrée ; les flèches précédent/suivant
 (ou ← / → au clavier) parcourent les journées affichées après filtrage. Échap
 ferme la fiche. Les noms de villes, lieux et hébergements dans les descriptions
