@@ -43,6 +43,21 @@ const source = readFileSync(new URL('./main.js', import.meta.url), 'utf8')
   .replace(/^import .*;\r?$/gm, '');
 runInNewContext(source, { ...data, linkPlaces, document: { querySelector: () => app } });
 
+test('accommodation cities and places in their descriptions link to Google Maps', () => {
+  const section = app.innerHTML.match(/<section id="hebergements"[\s\S]*?<\/section>/)[0];
+  const cards = [...section.matchAll(/<article class="hotel-card">([\s\S]*?)<\/article>/g)];
+  assert.equal(cards.length, data.hotels.length);
+  data.hotels.forEach((hotel, index) => {
+    assert.ok(cards[index][1].includes(`<p class="eyebrow">${linkPlaces(hotel.city)} <span>`));
+    assert.ok(cards[index][1].includes(`<p>${linkPlaces(hotel.note)}</p>`));
+    assert.ok(cards[index][1].includes('Voir sur la carte'));
+  });
+  for (const city of ['Kyoto', 'Uji', 'Himeji']) {
+    const query = encodeURIComponent(`${city}, Japon`);
+    assert.ok(cards[1][1].includes(`<a class="place-link" href="https://www.google.com/maps/search/?api=1&amp;query=${query}" target="_blank" rel="noopener noreferrer">${city}</a>`));
+  }
+});
+
 test('the timeline has chronological collapsible date pills and detail controls for all thirteen days', () => {
   assert.match(app.innerHTML, /class="day-timeline"/);
   assert.doesNotMatch(app.innerHTML, /class="day-grid"/);
